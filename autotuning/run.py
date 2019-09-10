@@ -85,16 +85,17 @@ RXTERM = format_to_list(RXTERM)
 
 # Main script
 print("----------------------------------------------------------------------")
-print("Creating Instance 0")
+print("-- Creating Instance 0 ---------")
 rcv = pyIBERT(server0_addr,server0_port,target0_name,target0_freq)
-print("Creating Instance 1")
+print("-- Creating Instance 1 ---------")
 transm = pyIBERT(server1_addr,server1_port,target1_name,target1_freq)
-
+print("-- Source rcv ------------------")
 rcv.source("./" + tcl_dir + tcl_rcv_name + ".tcl")
+print("-- Source trm ------------------")
 transm.source("./" + tcl_dir + tcl_transm_name + ".tcl")
-
+print("-- Creating dir ----------------")
 create_dir(results_dir)
-
+print("-- Main loop -------------------")
 for mgt_idx in range(len(mgt_rx)):
 
     f = open("./" + results_dir + results_name + "Rx" + mgt_rx[mgt_idx] + "_Tx" +mgt_tx[mgt_idx] + "_ErrReq" + str(err_req) + "_BER" + BER.replace("\"","") + ".csv","w")
