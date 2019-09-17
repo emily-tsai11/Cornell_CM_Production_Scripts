@@ -4,7 +4,9 @@ set_property FULL_PROBES.FILE {/scratch/disk2/rglein/vivado/CM_KU15P_134/CM_KU15
 set_property PROGRAM.FILE {/scratch/disk2/rglein/vivado/CM_KU15P_134/CM_KU15P_134.runs/impl_1/example_ibert_ultrascale_gty_0.bit} [get_hw_devices xcku15p_1]
 program_hw_devices [get_hw_devices xcku15p_1]
 refresh_hw_device [lindex [get_hw_devices xcku15p_1] 0]
-#refresh_hw_device [lindex [get_hw_devices xcvu7p_2] 0]
+refresh_hw_device [lindex [get_hw_devices xcvu7p_2] 0]
+#current_hw_device [get_hw_devices xcku15p_1]
+#refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xcku15p_1] 0]
 
 # Links
 set mgt_tx_list [eval get_hw_sio_txs]
@@ -17,6 +19,7 @@ for {set i 0} {$i<$mgt_len} {incr i} {
 }
 set xil_newLinkGroup [create_hw_sio_linkgroup -description {LINKGROUP_0} [get_hw_sio_links $xil_newLinks]]
 unset xil_newLinks
+eval get_hw_sio_links
 
 ################################################################################
 # Transceivers

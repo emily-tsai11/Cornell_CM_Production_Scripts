@@ -5,6 +5,8 @@ set_property PROGRAM.FILE {/scratch/disk2/rglein/vivado/CM_VU7P_125/CM_VU7P_125.
 program_hw_devices [get_hw_devices xcvu7p_2]
 refresh_hw_device [lindex [get_hw_devices xcvu7p_2] 0]
 #refresh_hw_device [lindex [get_hw_devices xcku15p_1] 0]
+#current_hw_device [get_hw_devices xcvu7p_2]
+#refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xcvu7p_2] 0]
 
 # Links
 set mgt_tx_list [eval get_hw_sio_txs]
@@ -17,6 +19,7 @@ for {set i 0} {$i<$mgt_len} {incr i} {
 }
 set xil_newLinkGroup [create_hw_sio_linkgroup -description {LINKGROUP_0} [get_hw_sio_links $xil_newLinks]]
 unset xil_newLinks
+eval get_hw_sio_links
 
 ################################################################################
 # Transceivers

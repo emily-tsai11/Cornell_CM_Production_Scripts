@@ -121,7 +121,7 @@ for mgt_idx in range(len(mgt_rx)):
     best_txpost = TXPOST[0]
     best_txpre = TXPRE[0]
 
-#    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace() # debug
 
     for i in TXDIFFSWING[::1]:
         transm.set_property("TXDIFFSWING", i, obj_tx)
