@@ -7,13 +7,27 @@ Created on Fri Jul 21 16:40:12 2017
 
 from eyescan_plot import eyescan_plot
 from glob import glob
+import argparse
+import datetime
 import os.path
 import numpy as np
 
 minlog10ber = -8
 overwrite = True
 
-filename_i_list = glob('../scans/CM01/fpga1/05-21-21/*.csv') # ---------------> need to be modified as a variable input
+fmt='%m-%d-%Y'
+timestamp = datetime.datetime.now().strftime(fmt) 
+print(timestamp)
+
+parser = argparse.ArgumentParser()
+parser.add_argument('CMXX', type=int, help="specified CM##")            
+parser.add_argument('fpgaX', type=int, help="specified fpga# (1 or 2)")
+args = parser.parse_args()
+
+CM = args.CMXX
+fpga = args.fpgaX  
+
+filename_i_list = glob('../scans/CM'+str(CM).zfill(2)+'/fpga'+str(fpga)+'/'+str(timestamp)+'/*.csv') # ---------------> need to be modified as a variable input
 print(filename_i_list)
 filename_o_list = [p.replace('csv','pdf') for p in filename_i_list]
 
