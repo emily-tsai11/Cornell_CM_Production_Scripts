@@ -7,6 +7,42 @@
 - **Python 2.7**
 ### Instructions
 
+## C2C-link Eyescans Script
+
+### Overview
+`mcu_tools` submodule contains automate scripts in the shell directory to create a weekly-report directory in `/nfs/cms/hw/apollo/` and run C2C eyescans on any apollo blades. We note that currently only a one-by-one eyescan is enable, and only Apollo09 blade with CM03 is accessible.  
+### Requirements
+- **Python 2.7** 
+- **lnx4189.classe.cornell.edu machine** 
+- ssh key-pair to **Apollo## blade**
+### Instructions
+There are four C2C transceivers with RX-eyescans enable on each rev1 apollo blade. That includes:
+```INI
+1: C2C1_PHY (RX on Zynq from Virtex)
+2: C2C2_PHY (RX on Zynq from Kintex)
+3: K_C2C_PHY (RX on Kintex from Zynq)
+4: V_C2C_PHY (RX on Virtex from Zynq)
+```
+
+Given that we know the Apollo## blade and ttydevice(e.g. ttyUL1)
+
+Run the following command on lnx4189 if the weekly-report directory needs to be created (Weekly = Mon-Sun and WeekXX where XX = 1-53)
+```sh
+shell $ ./automate_mkdir_CM.sh
+```
+The program will create a directory `/CMXX/weekXX-MM-YYYY/` in `/nfs/cms/hw/apollo/` in order to save `*.png` and `*.log` files from running eyescans with `BUTool.exe` on Apollo## (in the next step)
+
+Here is the next step to run BUTool.exe and transfer `*.png` and `*.log` results of running one eyescan of a C2C link at a time
+
+Run the following command on lnx4189 if the weekly-report directory needs to be created (Weekly = Mon-Sun and WeekXX where XX = 1-53)
+```sh
+shell $ ./automate_apollo_eyescans.sh
+```
+
+The program will ask for Apollo##-CM## pair, and the C2C link number (1,2,..etc.) in order to `ssh` to its corresponding Zynq and run a generalized **c2c_single_eyescan_script** in `peace/ApolloTool`(subject to change by a given username) folder. Then, it will take a few minutes to run, depending on the customizable numbers of x-binning, y-binnning, and maximum prescale in the above automate shell script. The current set of these parameters is {binx=40,biny=40,max_prescale=6}. 
+
+Two files(`*.png` + `*.log`) per one eyescan will be transfered to the weekly-report folder if the corresponding one exists. 
+
 ## Autotuning System for Xilinx MGTs
 
 ### Overview
