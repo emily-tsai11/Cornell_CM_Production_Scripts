@@ -15,22 +15,26 @@ import numpy as np
 minlog10ber = -8
 overwrite = True
 
-fmt='%m-%d-%Y'
-timestamp = datetime.datetime.now().strftime(fmt) 
+wmy='%W-%m-%Y'
+weekly = datetime.datetime.now().strftime(wmy) 
+print(weekly)
+dhms='day-%d_time-%H.%M.%S'
+timestamp = datetime.datetime.now().strftime(dhms)
 print(timestamp)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('CMXX', type=int, help="specified CM##")            
-parser.add_argument('fpgaX', type=int, help="specified fpga# (1 or 2)")
+#parser.add_argument('fpgaX', type=int, help="specified fpga# (1 or 2)")
 args = parser.parse_args()
 
 CM = args.CMXX
-fpga = args.fpgaX  
+#fpga = args.fpgaX  
 
-filename_i_list = glob('../scans/CM'+str(CM).zfill(2)+'/fpga'+str(fpga)+'/'+str(timestamp)+'/*.csv') # ---------------> need to be modified as a variable input
-print(filename_i_list)
+filename_i_list = glob('/nfs/cms/hw/apollo/CM'+str(CM).zfill(2)+'/week'+str(weekly)+'/*.csv') # ---------------> need to be modified as a variable input
+#print(filename_i_list)
 filename_o_list = [p.replace('csv','pdf') for p in filename_i_list]
-
+filename_o_list = [p.replace('.',str(timestamp)+'.') for p in filename_o_list] 
+#print(filename_o_list)
 yticks = list(np.arange(-127,0,16))+[0]+list(np.arange(127,0,-16))[-1::-1]
 xticks = list(np.arange(-0.5,0.625,0.125))
 k=1
