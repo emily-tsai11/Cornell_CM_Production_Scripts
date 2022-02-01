@@ -10,7 +10,7 @@
 ## C2C-link Eyescans Script
 
 ### Overview
-`mcu_tools` submodule contains automate scripts in the shell directory to create a weekly-report directory in `/nfs/cms/hw/apollo/` and run C2C eyescans on any apollo blades. We note that currently only a one-by-one eyescan is enable, and only Apollo09 blade with CM03 is accessible.  
+`mcu_tools` submodule contains automate scripts in the shell directory to create a weekly-report directory in `/nfs/cms/hw/apollo/` and run C2C eyescans on any apollo blades. We note that currently a one-by-one eyescan and parallel eyescans are enable. The exception is that on apollo09 only three*/four c2c links are working.  
 ### Requirements
 - **Python 2.7** 
 - **lnx4189.classe.cornell.edu machine** 
@@ -24,6 +24,8 @@ There are four C2C transceivers with RX-eyescans enable on each rev1 apollo blad
 4: V_C2C_PHY (RX on Virtex from Zynq)
 ```
 
+* Only K_C2C_PHY is not working (update on 02/01/2022)
+
 Given that we know the Apollo## blade and ttydevice(e.g. ttyUL1)
 
 Run the following command on lnx4189 if the weekly-report directory needs to be created (Weekly = Mon-Sun and WeekXX where XX = 1-53)
@@ -34,14 +36,18 @@ The program will create a directory `/CMXX/weekXX-MM-YYYY/` in `/nfs/cms/hw/apol
 
 Here is the next step to run BUTool.exe and transfer `*.png` and `*.log` results of running one eyescan of a C2C link at a time
 
-Run the following command on lnx4189 if the weekly-report directory needs to be created (Weekly = Mon-Sun and WeekXX where XX = 1-53)
+Run the following command on lnx4189 to just run a single eyescan at a time
 ```sh
-shell $ ./automate_apollo_eyescans.sh
+shell $ ./automate_apollo_single_eyescan.sh
+```
+Run the following command on lnx4189 to run eyescans in parallel. 
+```sh
+shell $ ./automate_apollo_parallel_eyescans.sh
 ```
 
-The program will ask for Apollo##-CM## pair, and the C2C link number (1,2,..etc.) in order to `ssh` to its corresponding Zynq and run a generalized **c2c_single_eyescan_script** in `peace/ApolloTool`(subject to change by a given username) folder. Then, it will take a few minutes to run, depending on the customizable numbers of x-binning, y-binnning, and maximum prescale in the above automate shell script. The current set of these parameters is {binx=40,biny=40,max_prescale=6}. 
+These programs will ask for Apollo##-CM## pair, as well as the C2C link number (1,2,..etc.) for the single-eyescan script. They will `ssh` to its corresponding Zynq and run either **c2c_single_eyescan_script** or **c2c_parallel_eyescans_script** in `peace/ApolloTool`(subject to change by a given username) folder. Then, they will take a few minutes to run, depending on the customizable numbers of x-binning, y-binnning, and maximum prescale inside the above automate shell script. The current set of these parameters is {binx=40,biny=40,max_prescale=6}. 
 
-Two files(`*.png` + `*.log`) per one eyescan will be transfered to the weekly-report folder if the corresponding one exists. 
+Two files(`*.png` + `*.log`) per one eyescan or three* `*.png` and one `*.log' files will be transfered to the weekly-report folder if the corresponding one exists. 
 
 ## Autotuning System for Xilinx MGTs
 
