@@ -264,6 +264,6 @@ def eyescan_plot(filename_i, filename_o, minlog10ber, colorbar=True, xaxis=True,
     #pdf.cell(90, 10, " ", 0, 2, 'C')
     #pdf.cell(-30)
     pdf.ln(10)
-    pdf.image(filename_o.strip("pdf")+"png", x = None, y = None, w = 0, h = 0, type = '', link = '')
+    pdf.image(filename_o.strip("pdf")+"png", x = None, y = None, w = 200, h = 200, type = '', link = '')
     pdf.output(filename_o, 'F')
     plt.close()

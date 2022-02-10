@@ -17,10 +17,10 @@ overwrite = True
 
 wmy='%W-%m-%Y'
 weekly = datetime.datetime.now().strftime(wmy) 
-print(weekly)
+#print(weekly)
 dhms='day-%d_time-%H.%M.%S'
 timestamp = datetime.datetime.now().strftime(dhms)
-print(timestamp)
+#print(timestamp)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('CMXX', type=int, help="specified CM##")            
@@ -44,7 +44,7 @@ k=1
 #    eyedict
 
 for i,o in zip(filename_i_list, filename_o_list):
-    print('Saving file {0:03d} out of {1:d}.'.format(k,len(filename_i_list)))
+    #print('Saving file {0:03d} out of {1:d}.'.format(k,len(filename_i_list)))
     if (not os.path.exists(o)) or overwrite:
         eyescan_plot(i, o, minlog10ber, colorbar=True, xaxis=True, yaxis=True, xticks_f=xticks, yticks_f=yticks, mask_x1x2x3y1y2=(0.25, 0.4, 0.45, 0.25, 0.28))
     k += 1
