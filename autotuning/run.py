@@ -71,6 +71,10 @@ tcl_transm_name = config.get('test','tcl_transm_name')
 tcl_rcv_name = config.get('test','tcl_rcv_name')
 results_dir = config.get('test','results_dir')
 results_name = config.get('test','results_name')
+results_TXFPGA = config.get('test','results_TXFPGA')
+results_RXFPGA = config.get('test','results_RXFPGA')
+results_TXFPGAid = config.get('test','results_TXFPGAid')
+results_RXFPGAid = config.get('test','results_RXFPGAid')
 desired_area = config.getint('test','desired_area')
 BER = config.get('test','BER')
 err_req = config.getint('test','err_req')
@@ -98,7 +102,7 @@ create_dir(results_dir)
 print("-- Main loop -------------------")
 for mgt_idx in range(len(mgt_rx)):
 
-    f = open("./" + results_dir + results_name + "Rx" + mgt_rx[mgt_idx] + "_Tx" +mgt_tx[mgt_idx] + "_ErrReq" + str(err_req) + "_BER" + BER.replace("\"","") + ".csv","w")
+    f = open("./" + results_dir + results_name + "Rx" + mgt_rx[mgt_idx] + results_RXFPGA + "_Tx" + mgt_tx[mgt_idx] + results_TXFPGA + "_ErrReq" + str(err_req) + "_BER" + BER.replace("\"","") + ".csv","w")
     f.write("TXDIFFSWING"
             + "," + "TXPRE"
             + "," + "TXPOST"
@@ -106,8 +110,11 @@ for mgt_idx in range(len(mgt_rx)):
             + "," + "Error_Count"
             + "," + "Open Area"
             + "\n")
-    obj_rx = "get_hw_sio_links *MGT_" + mgt_rx[mgt_idx] + "/RX"
-    obj_tx = "get_hw_sio_links *MGT_" + mgt_tx[mgt_idx] + "/RX" # /RX is the end of the string
+    #obj_rx = "get_hw_sio_links *MGT_" + mgt_rx[mgt_idx] + "/RX"
+    #obj_tx = "get_hw_sio_links *MGT_" + mgt_tx[mgt_idx] + "/RX" # /RX is the end of the string
+    #obj_rx = "get_hw_sio_links *->*" + target0_name + "*MGT_" + mgt_rx[mgt_idx] + "/RX"  #Alec
+    #obj_tx = "get_hw_sio_links *" + target1_name + "*MGT_" + mgt_tx[mgt_idx] + "/TX->*"  #Alec
+    obj_link = "get_hw_sio_links *" + target1_name + results_TXFPGAid + "*MGT_" + mgt_tx[mgt_idx] + "/TX->*" + target0_name + results_RXFPGAid + "*MGT_" +mgt_rx[mgt_idx] + "/RX"
 
 #    rcv.scan_remove_all() #Rui
 #    transm.scan_remove_all() #RUi
@@ -124,13 +131,13 @@ for mgt_idx in range(len(mgt_rx)):
     #import pdb; pdb.set_trace() # debug
 
     for i in TXDIFFSWING[::1]:
-        transm.set_property("TXDIFFSWING", i, obj_tx)
+        transm.set_property("TXDIFFSWING", i, obj_link)
         for j in TXPRE[::1]:
-            transm.set_property("TXPRE", j, obj_tx)
+            transm.set_property("TXPRE", j, obj_link)
             for k in TXPOST[::1]:
-                transm.set_property("TXPOST", k, obj_tx)
+                transm.set_property("TXPOST", k, obj_link)
                 for l in RXTERM[::1]:
-                    rcv.set_property("RXTERM", l, obj_rx)
+                    rcv.set_property("RXTERM", l, obj_link)
 
 #                    transm.reset_all_gth_tx()
  #                   rcv.reset_all_gth_rx()
@@ -142,26 +149,26 @@ for mgt_idx in range(len(mgt_rx)):
                     print(iter)
                     iter = iter+1
 
-                    rcv.reset_sio_link_error(obj_rx)
-                    rcv.refresh_hw_sio(obj_rx)
+                    rcv.reset_sio_link_error(obj_link)
+                    rcv.refresh_hw_sio(obj_link)
 #                    time.sleep(0.01) # parameters are not instantly  #Rui
                                     # refreshed. Adjust it to be as small as
                                     # possible for your setup
-                    link = rcv.get_property("LOGIC.LINK", obj_rx)
+                    link = rcv.get_property("LOGIC.LINK", obj_link)
                     print("Rui: link: ", link)
                     err = "-1"
 
                     if link == "1":
-                        err = rcv.get_property("LOGIC.ERRBIT_COUNT", obj_rx)
+                        err = rcv.get_property("LOGIC.ERRBIT_COUNT", obj_link)
 
                         if int(err,16) <= err_req: # convert str hex to int
 
-                            rcv.scan_create("xil_scan", obj_rx)
+                            rcv.scan_create("xil_scan", obj_link)
                             rcv.scan_set_all("6", "6", BER)
                             rcv.scan_run_all()
 
                             scan_area = rcv.get_property("Open_Area", "get_hw_sio_scan")
-                            #scan_ber = rcv.get_property("RX_BER", obj_rx)
+                            #scan_ber = rcv.get_property("RX_BER", obj_link)
                             rcv.scan_remove_all() 
                             print("--- TXDIFFSWING: " + str(i) + "-- TXPRE: " + str(j) + "-- TXPOST: " + str(k) + "-- RXTERM: " + str(l) + "-- Error_Count: " + str(int(err,16)) + "-- Open_Area: " + str(scan_area) )
                             write_result_csv(f, i, j, k, l, str(int(err,16)), scan_area)
@@ -187,10 +194,10 @@ for mgt_idx in range(len(mgt_rx)):
 
 
 
-    transm.set_property("TXDIFFSWING", best_diff, obj_tx)
-    transm.set_property("TXPRE", best_txpre, obj_tx)
-    transm.set_property("TXPOST", best_txpost, obj_tx)
-    rcv.set_property("RXTERM", best_rx, obj_rx)
+    transm.set_property("TXDIFFSWING", best_diff, obj_link)
+    transm.set_property("TXPRE", best_txpre, obj_link)
+    transm.set_property("TXPOST", best_txpost, obj_link)
+    rcv.set_property("RXTERM", best_rx, obj_link)
 
     print("exit main()")
 
