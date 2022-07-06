@@ -6,13 +6,19 @@
 - **Python 3+**
 - **fpdf** (the package used to make a pdf file from converting a csv file of a Vivado eyescan. For instruction on how to install it, please follow https://github.com/reingart/pyfpdf) 
 ### Instructions
-The IBERTpy is a set of modified scripts from https://github.com/mvsoliveira/IBERTpy to convert Vivado eyescans from .csv to .pdf and .png formats. The path to a csv input file is structured for Cornell CM Production in the following manner: **Cornell_CM_Production_Scripts/scans/CM#/fpga#/mm-dd-yyyy/*.csv'**. 
+The IBERTpy is a set of modified scripts from https://github.com/mvsoliveira/IBERTpy to convert Vivado eyescans from .csv to .pdf and .png formats. The path to a csv input file is structured for Cornell CM Production in the following manner: **Cornell_CM_Production_Scripts/scans/CM#/mm-dd-yy/*.csv'**. 
 
-To convert a csv input file to a pdf + png file and store them in the same dir as the csv input file, run the following command in IBERTpy:
+To convert a csv input file to a pdf + png file and store them in the same dir as the csv input file, first ensure that the following command is searching in the correct directory on line 16 of the code and then run the following command in Cornell_CM_Production_Scripts/IBERTpy/python:
 ```sh
-$ python3 generate_all_plots.py XX X 
+$ python3 generate_all_plots.py
 ```
-where XX is an integer for CM# and X is another integer for fpga#
+
+After generating pdfs and png files, one can generate a summary pdf that organizes all eyescans of the standard CM203 MGT configuration into a more easily navigated summary document by entering the following command in Cornell_CM_Production_Scripts/IBERTpy/latex:
+```sh
+$ pdflatex --jobname=<desired name of output pdf, don’t add on “.pdf”> eyescan_summary.tex
+```
+Upon encountering a warning, type the letter r and hit enter to force the computer to ignore all further warnings.
+
 ## Autotuning System for Xilinx MGTs
 
 ### Overview
@@ -43,7 +49,7 @@ Please create and/or adjust the hw_*.tcl in the autotuning/automate folder.
 
 #### Setting the *config.ini*
 The *config.ini* file is where the test parameters should be set. They are
-loaded by the *run.py* script and specify the MGT's to be tuned, the tuning
+loaded by the *run.py* script and specify the MGT's to be tuned, the FPGA's on which the transmitters and receivers are located, the tuning
 configurations to be tested, stop conditions for the tuning process, among other
 parameters. The file is organized in sections and their variables, as the
 following example:
@@ -69,6 +75,18 @@ variable5 = value
 The DEFAULT section is a special one, and stablishes the default value for some
 of the variables of other sections. If they are not set in their own sections,
 the DEFAULT value is used.
+
+#### Setting other files
+In the program's current state, autotuning can only run over a set of MGT's that all
+share the same transmitter and receiver FPGA locations (e.g. all MGT's with
+transmitters on FPGA 1 and all receivers on FPGA 2). Autotuning of MGT's with different
+transmitter and receiver FPGA locations must be performed in multiple runs of the autotuning
+program for each collection of MGT's that have the same transmitter and receiver FPGA
+locations, properly modifying the relevant files after each run.
+Before running the files, be sure to set the FPGA on which the transmitters and
+receivers of the MGT's are located in CM_VU13P_rcv_setup.tcl and CM_VU13P_trm_setup.tcl.
+Both of these files have a line near the top of the code that specifies the FPGA location:
+xcvu13p_0 for FPGA 1 and xcvu13p_1 for FPGA 2.
 
 #### Running the autotuning script
 The autotuning script is run by the following command:
