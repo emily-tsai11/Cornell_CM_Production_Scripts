@@ -8,12 +8,33 @@
 ### Instructions
 The IBERTpy is a set of modified scripts from https://github.com/mvsoliveira/IBERTpy to convert Vivado eyescans from .csv to .pdf and .png formats. The path to a csv input file is structured for Cornell CM Production in the following manner: **Cornell_CM_Production_Scripts/scans/CM#/mm-dd-yy/*.csv'**. 
 
-To convert a csv input file to a pdf + png file and store them in the same dir as the csv input file, first ensure that the following command is searching in the correct directory on line 16 of the code and then run the following command in Cornell_CM_Production_Scripts/IBERTpy/python:
+To generate these csv files, first connect to the CM203 in Vivado.  Program the FPGAs with the desired firmware.  If the CM203 is connected to the lnx4189, the following firmware properly programs the two FPGAs for eyescans of the standard links:
+```sh
+FPGA1 bitstream: /mnt/scratch/rz393/firmware/top_Cornell_rev2_p1_VU13p-1-SM_7s_IBERT_lpGBT_v1_25GLHS.bit
+FPGA2 bitstream: /mnt/scratch/rz393/firmware/top_Cornell_rev2_p2_VU13p-1-SM_7s_IBERT_lpGBT_v1_25GLHS.bit
+```
+
+Next, set the MGT links.  Autodetect links often misses several of the links, so instead run the command below in the Vivado tcl console:
+```sh
+source <path to this imported repository>/Cornell_CM_Production_Scripts/autotuning/tcl/CM_VU13P_setup_IBERT.tcl
+```
+
+We can now run eyescans over all of these links, but first we must create a directory in which to save the csv files (<date> should be of the form mm-dd-yy):
+```sh
+mkdir <path to this imported repository>/Cornell_CM_Production_Scripts/scans/CM203/<date>
+```
+
+Then, modify line 9 of <path to this imported repository>/Cornell_CM_Production_Scripts/autotuning/tcl/apollo10_eyescan.tcl so that it corresponds to the current date, and run the following command in the tcl console to run eyescans over all of the links that we just set:
+```sh
+source <path to this imported repository>/Cornell_CM_Production_Scripts/autotuning/tcl/apollo10_eyescan.tcl
+```
+
+To convert a csv input file to a pdf + png file and store them in the same dir as the csv input file, first ensure that the following command is searching in the correct directory on line 16 of the code and then run the following command in <path to this imported repository>/Cornell_CM_Production_Scripts/IBERTpy/python:
 ```sh
 $ python3 generate_all_plots.py
 ```
 
-After generating pdfs and png files, one can generate a summary pdf that organizes all eyescans of the standard CM203 MGT configuration into a more easily navigated summary document by entering the following command in Cornell_CM_Production_Scripts/IBERTpy/latex:
+After generating pdfs and png files, one can generate a summary pdf that organizes all eyescans of the standard CM203 MGT configuration into a more easily navigated summary document by entering the following command in <path to this imported repository>/Cornell_CM_Production_Scripts/IBERTpy/latex:
 ```sh
 $ pdflatex --jobname=<desired name of output pdf, don’t add on “.pdf”> eyescan_summary.tex
 ```
