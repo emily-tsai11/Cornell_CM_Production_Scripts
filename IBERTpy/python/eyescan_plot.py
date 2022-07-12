@@ -3,6 +3,9 @@
 Created on Fri Jul 21 12:29:54 2017
 
 @author: msilvaol
+https://github.com/mvsoliveira/IBERTpy
+
+modified by Alec Duquette
 """
 
 import matplotlib.pyplot as plt
