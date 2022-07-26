@@ -115,6 +115,7 @@ for mgt_idx in range(len(mgt_rx)):
     #obj_rx = "get_hw_sio_links *->*" + target0_name + "*MGT_" + mgt_rx[mgt_idx] + "/RX"  #Alec
     #obj_tx = "get_hw_sio_links *" + target1_name + "*MGT_" + mgt_tx[mgt_idx] + "/TX->*"  #Alec
     obj_link = "get_hw_sio_links *" + target1_name + results_TXFPGAid + "*MGT_" + mgt_tx[mgt_idx] + "/TX->*" + target0_name + results_RXFPGAid + "*MGT_" +mgt_rx[mgt_idx] + "/RX"
+    print(obj_link)
 
 #    rcv.scan_remove_all() #Rui
 #    transm.scan_remove_all() #RUi
