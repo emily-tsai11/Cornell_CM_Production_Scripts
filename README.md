@@ -24,14 +24,14 @@ We can now run eyescans over all of these links, but first we must create a dire
 mkdir <path to this imported repository>/Cornell_CM_Production_Scripts/scans/CM203/<date>
 ```
 
-Then, modify line 9 of <path to this imported repository>/Cornell_CM_Production_Scripts/autotuning/tcl/apollo10_eyescan.tcl so that it corresponds to the current date, and run the following command in the tcl console to run eyescans over all of the links that we just set:
+Then, modify line 9 of <path to this imported repository>/Cornell_CM_Production_Scripts/autotuning/tcl/apollo10_eyescan.tcl so that the file path corresponds to the directory in which you wish to save the results of the scans, and run the following command in the tcl console to run eyescans over all of the links that we just set:
 ```sh
 source <path to this imported repository>/Cornell_CM_Production_Scripts/autotuning/tcl/apollo10_eyescan.tcl
 ```
 
-To convert a csv input file to a pdf + png file and store them in the same dir as the csv input file, first ensure that the following command is searching in the correct directory on line 16 of the code and then run the following command in <path to this imported repository>/Cornell_CM_Production_Scripts/IBERTpy/python:
+To convert a csv input file to a pdf + png file and store them in the same directory as the csv input file, run the following command in <path to this imported repository>/Cornell_CM_Production_Scripts/IBERTpy/python, where <board> is the id of the scanned board (e.g. CM203) and date is of the form mm-dd-yy:
 ```sh
-$ python3 generate_all_plots.py
+$ python3 generate_all_plots.py <board> <date>
 ```
 
 After generating pdfs and png files, one can generate a summary pdf that organizes all eyescans of the standard CM203 MGT configuration into a more easily navigated summary document by entering the following command in <path to this imported repository>/Cornell_CM_Production_Scripts/IBERTpy/latex:
