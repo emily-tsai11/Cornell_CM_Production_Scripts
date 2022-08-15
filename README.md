@@ -19,26 +19,27 @@ Next, set the MGT links.  Autodetect links often misses several of the links, so
 source <path to this imported repository>/Cornell_CM_Production_Scripts/autotuning/tcl/CM_VU13P_setup_IBERT.tcl
 ```
 
-We can now run eyescans over all of these links, but first we must create a directory in which to save the csv files (<date> should be of the form mm-dd-yy):
+We can now run eyescans over all of these links, but first we must create a directories in which to save the csv files.  The current version of the command that runs the eyescans in Vivado saves the scans to two locations: once into the downloaded Cornell_CM_ProductionScripts output directories and once into the shared track trigger output directories (<date> should be of the form mm-dd-yy):
 ```sh
 mkdir <path to this imported repository>/Cornell_CM_Production_Scripts/scans/CM203/<date>
+mkdir /nfs/cms/tracktrigger/apollo/CM203/scans/<date>
 ```
 
-Then, modify line 9 of <path to this imported repository>/Cornell_CM_Production_Scripts/autotuning/tcl/apollo10_eyescan.tcl so that the file path corresponds to the directory in which you wish to save the results of the scans, and run the following command in the tcl console to run eyescans over all of the links that we just set:
+Then, modify line 9 of <path to this imported repository>/Cornell_CM_Production_Scripts/autotuning/tcl/apollo10_eyescan.tcl so that the date in the file path corresponds to the directory in which you wish to save the results of the scans, and run the following command in the tcl console to run eyescans over all of the links that we just set:
 ```sh
 source <path to this imported repository>/Cornell_CM_Production_Scripts/autotuning/tcl/apollo10_eyescan.tcl
 ```
 
 To convert a csv input file to a pdf + png file and store them in the same directory as the csv input file, run the following command in <path to this imported repository>/Cornell_CM_Production_Scripts/IBERTpy/python, where <board> is the id of the scanned board (e.g. CM203) and date is of the form mm-dd-yy:
 ```sh
-$ python3 generate_all_plots.py <board> <date>
+$ python3 generate_all_plots.py <board> <date of scans>
 ```
 
 After generating pdfs and png files, one can generate a summary pdf that organizes all eyescans of the standard CM203 MGT configuration into a more easily navigated summary document by entering the following command in <path to this imported repository>/Cornell_CM_Production_Scripts/IBERTpy/latex:
 ```sh
-$ pdflatex --jobname=<desired name of output pdf, don’t add on “.pdf”> eyescan_summary.tex
+$ pdflatex --jobname=<desired name of output file, don't add on ".pdf"> "\def\dateofscans{<date of scans>} \input{eyescan_summary.tex}"
 ```
-Upon encountering a warning, type the letter r and hit enter to force the computer to ignore all further warnings.
+Upon encountering a warning, type the letter r and hit enter to force the computer to ignore all further warnings.  If you wish to save the output files to a different directory you can add --output-directory=<desired output directory> as an additional argument after --jobname.
 
 ## Autotuning System for Xilinx MGTs
 

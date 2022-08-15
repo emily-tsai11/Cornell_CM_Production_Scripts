@@ -22,6 +22,7 @@ else:
     filename_i_list = glob('../../scans/' + sys.argv[1] + '/' + sys.argv[2] + '/*.csv')
     print(filename_i_list)
     filename_o_list = [p.replace('csv','pdf') for p in filename_i_list]
+    filename_nfso_list = [n.replace('../../scans/' + sys.argv[1] + '/' + sys.argv[2], '/nfs/cms/tracktrigger/apollo/' + sys.argv[1] + '/scans/' + sys.argv[2]) for n in filename_o_list]
 
     yticks = list(np.arange(-127,0,16))+[0]+list(np.arange(127,0,-16))[-1::-1]
     xticks = list(np.arange(-0.5,0.625,0.125))
@@ -37,3 +38,11 @@ else:
             eyescan_plot(i, o, minlog10ber, colorbar=True, xaxis=True, yaxis=True, xticks_f=xticks, yticks_f=yticks, mask_x1x2x3y1y2=(0.25, 0.4, 0.45, 0.25, 0.28))
         k += 1
         #break
+
+    k=1
+    for i,nfso in zip(filename_i_list, filename_nfso_list):
+        print('Saving file {0:03d} out of {1:d}.'.format(k,len(filename_i_list)))
+        if (not os.path.exists(nfso)) or overwrite:
+            eyescan_plot(i, nfso, minlog10ber, colorbar=True, xaxis=True, yaxis=True, xticks_f=xticks, yticks_f=yticks, mask_x1x2x3y1y2=(0.25, 0.4, 0.45, 0.25, 0.28))
+        k += 1
+        #break 

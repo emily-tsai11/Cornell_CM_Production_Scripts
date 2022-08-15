@@ -7,9 +7,11 @@ set mgt_link_list [eval get_hw_sio_links]
 ##set Rxs {43,4}
 
 set date 07-25-22
-#Example date 01-19-22
+#Modify this variable to correspond to current date before running, Example date: 01-19-22
+
 set path /mnt/scratch/ad683/Cornell_CM_Production_Scripts/scans/CM203/${date}
-#Also, be sure to create corresponding directory to save the scans to (e.g. /mnt/scratch/ad683/Cornell_CM_Production_Scripts/scans/CM203/01-19-22)
+set nfspath /nfs/cms/tracktrigger/apollo/CM203/scans/${date}
+#Also, be sure to first create corresponding directories to save the scans to (e.g. /mnt/scratch/ad683/Cornell_CM_Production_Scripts/scans/CM203/01-19-22)
 
 ## Links between FPGA (Tx are the ones from FPGA1, Rxs are from FPGA2)
 set Txs {}
@@ -60,7 +62,8 @@ foreach Tx $Txs Rx $Rxs {
     set trimRx [string trim $Rx "/"]
     #write_hw_sio_scan -force "/mnt/scratch/ad683/Cornell_CM_Production_Scripts/scans/CM203/${date}/eyescan_${trimTx}(xcvu13p_0)_to_${trimRx}(xcvu13p_1)" [get_hw_sio_scans $xil_newScan]
     write_hw_sio_scan -force "${path}/eyescan_${trimTx}(xcvu13p_0)_to_${trimRx}(xcvu13p_1)" [get_hw_sio_scans $xil_newScan]
-    
+    write_hw_sio_scan -force "${nfspath}/eyescan_${trimTx}(xcvu13p_0)_to_${trimRx}(xcvu13p_1)" [get_hw_sio_scans $xil_newScan]    
+
     puts "MGT $i"
     puts [lsearch -all -inline $mgt_link_list "*2542/1_1*$Rx*->*2542/0_1*$Tx*"]
     set xil_newScan [create_hw_sio_scan -description "Scan $i" 2d_full_eye  [lindex [get_hw_sio_links [lsearch -all -inline $mgt_link_list "*2542/1_1*$Rx*->*2542/0_1*$Tx*"]] 0 ]]
@@ -71,6 +74,7 @@ foreach Tx $Txs Rx $Rxs {
     wait_on_hw_sio_scan [get_hw_sio_scans $xil_newScan]
     #write_hw_sio_scan -force "/mnt/scratch/ad683/Cornell_CM_Production_Scripts/scans/CM203/${date}/eyescan_${trimRx}(xcvu13p_1)_to_${trimTx}(xcvu13p_0)" [get_hw_sio_scans $xil_newScan]
     write_hw_sio_scan -force "${path}/eyescan_${trimRx}(xcvu13p_1)_to_${trimTx}(xcvu13p_0)" [get_hw_sio_scans $xil_newScan]
+    write_hw_sio_scan -force "${nfspath}/eyescan_${trimRx}(xcvu13p_1)_to_${trimTx}(xcvu13p_0)" [get_hw_sio_scans $xil_newScan]
     ;
 }
 
@@ -121,7 +125,8 @@ foreach Tx $TxFF1s Rx $RxFF1s {
     set trimRx [string trim $Rx "/"]
     #write_hw_sio_scan -force "/mnt/scratch/ad683/Cornell_CM_Production_Scripts/scans/CM203/${date}/eyescan_${trimTx}(xcvu13p_0)_to_${trimRx}(xcvu13p_0)" [get_hw_sio_scans $xil_newScan]
     write_hw_sio_scan -force "${path}/eyescan_${trimTx}(xcvu13p_0)_to_${trimRx}(xcvu13p_0)" [get_hw_sio_scans $xil_newScan]
-    
+    write_hw_sio_scan -force "${nfspath}/eyescan_${trimTx}(xcvu13p_0)_to_${trimRx}(xcvu13p_0)" [get_hw_sio_scans $xil_newScan]    
+
     if {$Tx != $Rx} {
 	puts "MGT $i"
 	puts [lsearch -all -inline $mgt_link_list "*2542/0_1*$Rx*->*2542/0_1*$Tx*"]
@@ -133,6 +138,7 @@ foreach Tx $TxFF1s Rx $RxFF1s {
 	wait_on_hw_sio_scan [get_hw_sio_scans $xil_newScan]
 	#write_hw_sio_scan -force "/mnt/scratch/ad683/Cornell_CM_Production_Scripts/scans/CM203/${date}/eyescan_${trimRx}(xcvu13p_0)_to_${trimTx}(xcvu13p_0)" [get_hw_sio_scans $xil_newScan]
         write_hw_sio_scan -force "${path}/eyescan_${trimRx}(xcvu13p_0)_to_${trimTx}(xcvu13p_0)" [get_hw_sio_scans $xil_newScan]
+        write_hw_sio_scan -force "${nfspath}/eyescan_${trimRx}(xcvu13p_0)_to_${trimTx}(xcvu13p_0)" [get_hw_sio_scans $xil_newScan]
     }
     ;
 }
@@ -179,7 +185,8 @@ foreach Tx $TxFF2s Rx $RxFF2s {
     set trimRx [string trim $Rx "/"]
     #write_hw_sio_scan -force "/mnt/scratch/ad683/Cornell_CM_Production_Scripts/scans/CM203/${date}/eyescan_${trimTx}(xcvu13p_1)_to_${trimRx}(xcvu13p_1)" [get_hw_sio_scans $xil_newScan]
     write_hw_sio_scan -force "${path}/eyescan_${trimTx}(xcvu13p_1)_to_${trimRx}(xcvu13p_1)" [get_hw_sio_scans $xil_newScan]
-    
+    write_hw_sio_scan -force "${nfspath}/eyescan_${trimTx}(xcvu13p_1)_to_${trimRx}(xcvu13p_1)" [get_hw_sio_scans $xil_newScan]    
+
     if {$Tx != $Rx} {
 	puts "MGT $i"
 	puts [lsearch -all -inline $mgt_link_list "*2542/1_1*$Rx*->*2542/1_1*$Tx*"]
@@ -191,6 +198,7 @@ foreach Tx $TxFF2s Rx $RxFF2s {
 	wait_on_hw_sio_scan [get_hw_sio_scans $xil_newScan]
 	#write_hw_sio_scan -force "/mnt/scratch/ad683/Cornell_CM_Production_Scripts/scans/CM203/${date}/eyescan_${trimRx}(xcvu13p_1)_to_${trimTx}(xcvu13p_1)" [get_hw_sio_scans $xil_newScan]
         write_hw_sio_scan -force "${path}/eyescan_${trimRx}(xcvu13p_1)_to_${trimTx}(xcvu13p_1)" [get_hw_sio_scans $xil_newScan]
+        write_hw_sio_scan -force "${nfspath}/eyescan_${trimRx}(xcvu13p_1)_to_${trimTx}(xcvu13p_1)" [get_hw_sio_scans $xil_newScan]
     }
     ;
 }
