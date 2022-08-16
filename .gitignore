@@ -20,5 +20,5 @@ IBERTpy/latex/*.toc
 scans/CM203/
 
 # Autotuning results
-autotuning/results/
-autotuning/results_1/
+autotuning/results/*.csv
+autotuning/results_1/*.csv
