@@ -3,6 +3,9 @@
 Created on Fri Jul 21 12:29:54 2017
 
 @author: msilvaol
+https://github.com/mvsoliveira/IBERTpy
+
+modified by Alec Duquette
 """
 
 import matplotlib.pyplot as plt
@@ -101,28 +104,27 @@ def eyescan_plot(filename_i, filename_o, minlog10ber, colorbar=True, xaxis=True,
     with open(filename_i, 'rb') as f:
             reader = csv.reader(map(bytes.decode,f))
             scan_list = list(reader)
-
             
             df = pd.DataFrame()
             df['SW Version'] = [scan_list[0][1]]
-            df['GT Type'] = [scan_list[1][1]]
-            df['Date and Time Started'] = [scan_list[2][1]]
-            df['Date and Time Ended'] = [scan_list[3][1]]
+            #df['GT Type'] = [scan_list[1][1]] #removed
+            df['Date and Time Started'] = [scan_list[1][1]] #[2][1]
+            df['Date and Time Ended'] = [scan_list[2][1]] #[3][1]
 
             df2 = pd.DataFrame()
-            df2['Reset RX'] = [scan_list[6][1]]
-            df2['OA'] = [scan_list[7][1]]
-            df2['HO'] = [scan_list[8][1]]
-            df2['HO(%)'] = [scan_list[9][1]]
-            df2['VO'] = [scan_list[10][1]]
-            df2['VO(%)'] = [scan_list[11][1]]
+            df2['Reset RX'] = [scan_list[5][1]] #[6][1]
+            df2['OA'] = [scan_list[6][1]] #[7][1]
+            df2['HO'] = [scan_list[7][1]] #[8][1]
+            df2['HO(%)'] = [scan_list[8][1]] #[9][1]
+            df2['VO'] = [scan_list[9][1]] #[10][1]
+            df2['VO(%)'] = [scan_list[10][1]] #[11][1]
 
             df3 = pd.DataFrame()
-            df3['Dwell Type'] = [scan_list[12][1]]
-            df3['Dwell BER'] = [scan_list[13][1]]
-            df3['Horizontal Inc.'] = [scan_list[15][1]]
-            df3['Vertical Inc.'] = [scan_list[17][1]]
-            df3['Misc Info'] = [scan_list[19][1]]
+            df3['Dwell Type'] = [scan_list[11][1]] #[12][1]
+            df3['Dwell BER'] = [scan_list[12][1]] #[13][1]
+            df3['Horizontal Inc.'] = [scan_list[14][1]] #[15][1]
+            df3['Vertical Inc.'] = [scan_list[16][1]] #[17][1]
+            df3['Misc Info'] = [scan_list[18][1]] #[19][1]
 
                 
     # getting eye data
@@ -206,14 +208,14 @@ def eyescan_plot(filename_i, filename_o, minlog10ber, colorbar=True, xaxis=True,
     pdf.cell(90, 10, filename_o.strip(".pdf").split("/")[-1], 0, 2, 'C')
     pdf.ln(2)
     pdf.cell(30, 8, 'SW Version', 1, 0, 'C')
-    pdf.cell(30, 8, 'GT Type', 1, 0, 'C')
+    #pdf.cell(30, 8, 'GT Type', 1, 0, 'C') #removed
     pdf.cell(70, 8, 'Date and Time Started', 1, 0, 'C')
     pdf.cell(60, 8, 'Date and Time Ended', 1, 0, 'C')
     pdf.ln(8)
     pdf.set_font('arial', '', 10)
     for i in range(0, len(df)):
         pdf.cell(30, 8, '%s' % (str(df['SW Version'].iloc[i])), 1, 0, 'C')
-        pdf.cell(30, 8, '%s' % (str(df['GT Type'].iloc[i])), 1, 0, 'C')
+        #pdf.cell(30, 8, '%s' % (str(df['GT Type'].iloc[i])), 1, 0, 'C') #removed
         pdf.cell(70, 8, '%s' % (str(df['Date and Time Started'].iloc[i])), 1, 0, 'C')
         pdf.cell(60, 8, '%s' % (str(df['Date and Time Ended'].iloc[i])), 1, 0, 'C')
         
