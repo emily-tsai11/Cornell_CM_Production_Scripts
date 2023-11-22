@@ -150,12 +150,13 @@ for mgt_idx in range(len(mgt_rx)):
                     print(iter)
                     iter = iter+1
 
-                    rcv.reset_sio_link_error(obj_link)
-                    rcv.refresh_hw_sio(obj_link)
+                    rcv.reset_sio_link_error(obj_rx)
+                    rcv.refresh_hw_sio(obj_rx)
 #                    time.sleep(0.01) # parameters are not instantly  #Rui
                                     # refreshed. Adjust it to be as small as
                                     # possible for your setup
-                    link = rcv.get_property("LOGIC.LINK", obj_link)
+                    link = rcv.get_property("LOGIC.LINK", obj_rx)
+
                     print("Rui: link: ", link)
                     err = "-1"
 
@@ -169,7 +170,9 @@ for mgt_idx in range(len(mgt_rx)):
                             rcv.scan_run_all()
 
                             scan_area = rcv.get_property("Open_Area", "get_hw_sio_scan")
-                            #scan_ber = rcv.get_property("RX_BER", obj_link)
+
+                            #scan_ber = rcv.get_property("RX_BER", obj_rx)
+
                             rcv.scan_remove_all() 
                             print("--- TXDIFFSWING: " + str(i) + "-- TXPRE: " + str(j) + "-- TXPOST: " + str(k) + "-- RXTERM: " + str(l) + "-- Error_Count: " + str(int(err,16)) + "-- Open_Area: " + str(scan_area) )
                             write_result_csv(f, i, j, k, l, str(int(err,16)), scan_area)
