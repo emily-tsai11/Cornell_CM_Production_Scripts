@@ -18,7 +18,7 @@ set mgt_rx_list [eval get_hw_sio_rxs]
 set mgt_len [llength $mgt_tx_list]
 remove_hw_sio_link [get_hw_sio_links]
 for {set i 0} {$i<$mgt_len} {incr i} {
-    set xil_newLink [create_hw_sio_link -description "MGT $i" [lindex $mgt_tx_list $i] [lindex $mgt_rx_list $i] ]
+    set xil_newLink [create_hw_sio_link -description {MGT $i} [lindex $mgt_tx_list $i] [lindex $mgt_rx_list $i] ]
     lappend xil_newLinks $xil_newLink
 }
 set xil_newLinkGroup [create_hw_sio_linkgroup -description {Link_Group_0} [get_hw_sio_links $xil_newLinks]]
@@ -28,36 +28,36 @@ eval get_hw_sio_links
 
 ################################################################################
 # Transceivers
-set_property TXDIFFSWING {530 mV (00101)} [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-set_property TXPOST {0.00 dB (00000)}  [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-set_property TXPRE {0.01 dB (00000)} [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-set_property RXDFEENABLED 0 [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
+set_property TXDIFFSWING {530 mV (00101)} [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+set_property TXPOST {0.00 dB (00000)}  [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+set_property TXPRE {0.00 dB (00000)} [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+set_property RXDFEENABLED 0 [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
 
 ################################################################################
 # Reset channels
-set_property PORT.GTRXRESET 1 [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-set_property PORT.GTRXRESET 0 [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-set_property PORT.GTRXRESET 1 [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-set_property PORT.GTRXRESET 0 [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
+set_property PORT.GTRXRESET 1 [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+set_property PORT.GTRXRESET 0 [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+set_property PORT.GTRXRESET 1 [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+set_property PORT.GTRXRESET 0 [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
 
 ################################################################################
 # PRBS Pattern
-set_property TX_PATTERN {PRBS 31-bit} [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-#set_property TX_PATTERN {Slow Clk} [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-set_property RX_PATTERN {PRBS 31-bit} [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-#set_property RX_PATTERN {Slow Clk} [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
+set_property TX_PATTERN {PRBS 31-bit} [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+#set_property TX_PATTERN {Slow Clk} [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+set_property RX_PATTERN {PRBS 31-bit} [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+#set_property RX_PATTERN {Slow Clk} [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
 
 ################################################################################
 # TX Inhibit
-#set_property PORT.TXINHIBIT 1 [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
-#commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups {Link_Group_0}]]
+#set_property PORT.TXINHIBIT 1 [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]
+#commit_hw_sio [get_hw_sio_links -of_objects [get_hw_sio_linkgroups]]

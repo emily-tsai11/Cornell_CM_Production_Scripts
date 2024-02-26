@@ -36,12 +36,12 @@ class pyIBERT(XilinxTCL):
   def connect(self):
     self.create()
 
-    self.sendCommand("open_hw_manager")
-#    self.sendCommand("refresh_hw_server")
-    self.sendCommand("connect_hw_server -allow_non_jtag -url " + self.server_url)
+    self.sendCommand("open_hw")
+    # self.sendCommand("refresh_hw_server")
+    self.sendCommand("connect_hw_server -url " + self.server_url)
     time.sleep(3) # required delay to refresh information (xilinx bug)
     self.sendCommand("disconnect_hw_server " + self.server_url)
-    self.sendCommand("connect_hw_server -allow_non_jtag -url "+ self.server_url)
+    self.sendCommand("connect_hw_server -url "+ self.server_url)
     if self.target_freq == '0': # for xvc
       self.sendCommand("open_hw_target -verbose -xvc_url "
                        + self.target_name)
@@ -108,24 +108,23 @@ class pyIBERT(XilinxTCL):
 
   def reset_all_gty_txdatapath(self):
     self.sendCommand("set_property LOGIC.TX_RESET_DATAPATH 1 [get_hw_sio_links "+
-                     "-of_objects [get_hw_sio_linkgroups {Link_Group_0}]]")
+                     "-of_objects [get_hw_sio_linkgroups]]")
     self.sendCommand("commit_hw_sio [get_hw_sio_links -of_objects "+
-                     "[get_hw_sio_linkgroups {Link_Group_0}]]")
+                     "[get_hw_sio_linkgroups]]")
     self.sendCommand("set_property LOGIC.TX_RESET_DATAPATH 0 [get_hw_sio_links "+
-                     "-of_objects [get_hw_sio_linkgroups {Link_Group_0}]]")
+                     "-of_objects [get_hw_sio_linkgroups]]")
     self.sendCommand("commit_hw_sio [get_hw_sio_links -of_objects "+
-                     "[get_hw_sio_linkgroups {Link_Group_0}]]")
+                     "[get_hw_sio_linkgroups]]")
 
   def reset_all_gty_rxdatapath(self):
     self.sendCommand("set_property LOGIC.RX_RESET_DATAPATH 1 [get_hw_sio_links "+
-                     "-of_objects [get_hw_sio_linkgroups {Link_Group_0}]]")
+                     "-of_objects [get_hw_sio_linkgroups]]")
     self.sendCommand("commit_hw_sio [get_hw_sio_links -of_objects "+
-                     "[get_hw_sio_linkgroups {Link_Group_0}]]")
+                     "[get_hw_sio_linkgroups]]")
     self.sendCommand("set_property LOGIC.RX_RESET_DATAPATH 0 [get_hw_sio_links "+
-                     "-of_objects [get_hw_sio_linkgroups {Link_Group_0}]]")
+                     "-of_objects [get_hw_sio_linkgroups]]")
     self.sendCommand("commit_hw_sio [get_hw_sio_links -of_objects "+
-                     "[get_hw_sio_linkgroups {Link_Group_0}]]")
-
+                     "[get_hw_sio_linkgroups]]")
 
   def reset_all_gth_rx(self):
     self.sendCommand("set_property PORT.GTRXRESET 1 [get_hw_sio_links "+
@@ -141,5 +140,5 @@ class pyIBERT(XilinxTCL):
     self.sendCommand("after "+msec)
 
   def close_hw(self):
-    self.sendCommand("close_hw_manager")
+    self.sendCommand("close_hw")
     self.terminate()

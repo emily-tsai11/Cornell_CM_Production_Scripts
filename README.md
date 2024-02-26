@@ -1,4 +1,4 @@
-# Scripts Used for Cornell CM Produciton Checkout
+# Scripts Used for Cornell CM Production Checkout
 
 ## IBERTpy Plotting Script
 ### Overview

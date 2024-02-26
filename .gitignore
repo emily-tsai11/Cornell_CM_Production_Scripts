@@ -17,8 +17,11 @@ IBERTpy/latex/*.pdf
 IBERTpy/latex/*.toc
 
 # Scan results
-scans/CM203/
+scans/apollo214/
 
 # Autotuning results
-autotuning/results/*.csv
-autotuning/results_1/*.csv
+autotuning/results/*/*.csv
+
+# Autotuning plots
+autotuning/plot/*.txt
+autotuning/plot/*.png

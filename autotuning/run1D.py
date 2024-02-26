@@ -126,8 +126,8 @@ for mgt_idx in range(len(mgt_rx)):
     obj_rx = "get_hw_sio_links *MGT_" + mgt_rx[mgt_idx] + "/RX"
     obj_tx = "get_hw_sio_links *MGT_" + mgt_tx[mgt_idx] + "/RX" # /RX is the end of the string
 
-#    rcv.scan_remove_all() #Rui
-#    transm.scan_remove_all() #RUi
+    # rcv.scan_remove_all() #Rui
+    # transm.scan_remove_all() #RUi
 
     iter = 0
 
@@ -138,7 +138,7 @@ for mgt_idx in range(len(mgt_rx)):
     best_txpost = TXPOST[0]
     best_txpre = TXPRE[0]
 
-    #import pdb; pdb.set_trace() # debug
+    # import pdb; pdb.set_trace() # debug
 
     for i in TXDIFFSWING[::1]:
         transm.set_property("TXDIFFSWING", i, obj_tx)
@@ -149,33 +149,35 @@ for mgt_idx in range(len(mgt_rx)):
                 for l in RXTERM[::1]:
                     rcv.set_property("RXTERM", l, obj_rx)
 
-#                    transm.reset_all_gth_tx()
- #                   rcv.reset_all_gth_rx()
-                    transm.reset_all_gty_txdatapath() #Rui
-                    rcv.reset_all_gty_rxdatapath() #Rui
+                    for reset in range(3):
+                        # transm.reset_all_gth_tx()
+                        # rcv.reset_all_gth_rx()
+                        transm.reset_all_gty_txdatapath() #Rui
+                        rcv.reset_all_gty_rxdatapath() #Rui
+                        rcv.reset_sio_link_error(obj_rx)
+                        rcv.refresh_hw_sio(obj_rx)
+                    # rcv.wait("40000")
+                    # time.sleep(30) # parameters are not instantly #Rui
+                                     # refreshed -- adjust it to be as small as
+                                     # possible for your setup
 
                     print("------ Transceiver - " + mgt_rx[mgt_idx])
                     print("------ Iter: " + str(iter))
-                    print(iter)
                     iter = iter+1
+                    print("--- TXDIFFSWING: " + str(i) + "-- TXPRE: " + str(j) + "-- TXPOST: " + str(k) + "-- RXTERM: " + str(l))
 
-                    rcv.reset_sio_link_error(obj_rx)
-                    rcv.refresh_hw_sio(obj_rx)
-                    #time.sleep(1) # parameters are not instantly  #Rui
-                                    # refreshed. Adjust it to be as small as
-                                    # possible for your setup
                     link = rcv.get_property("LOGIC.LINK", obj_rx)
                     print("link: ",link)
                     err = "-1"
 
                     if link == "1":
-#                        rcv.source("refresh.tcl")
-#                        rcv.wait("40000")
-#                        rcv.set_property("LOGIC.MGT_ERRCNT_RESET_CTRL", "1", obj_rx)
-#                        rcv.set_property("LOGIC.MGT_ERRCNT_RESET_CTRL", "0", obj_rx)
+                        # rcv.source("refresh.tcl")
+                        # rcv.wait("40000")
+                        # rcv.set_property("LOGIC.MGT_ERRCNT_RESET_CTRL", "1", obj_rx)
+                        # rcv.set_property("LOGIC.MGT_ERRCNT_RESET_CTRL", "0", obj_rx)
                         err = rcv.get_property("LOGIC.ERRBIT_COUNT", obj_rx)
                         total_bits = rcv.get_property("RX_RECEIVED_BIT_COUNT", obj_rx)
-                        scan_ber= rcv.get_property("RX_BER", obj_rx)
+                        scan_ber = rcv.get_property("RX_BER", obj_rx)
 
                         if int(err,16) <= err_req: # convert str hex to int
 
@@ -190,19 +192,20 @@ for mgt_idx in range(len(mgt_rx)):
                             scan_area = rcv.get_property("Open_Area", "get_hw_sio_scan")
                             if scan_1d:
                                 scan_area = str(100*int(scan_area)/64.0)
-#                            rcv.source("refresh.tcl")
+                            # rcv.source("refresh.tcl")
                             rcv.reset_sio_link_error(obj_rx)
-                            for timer in range(240):
+                            for timer in range(1000):
                                 rcv.refresh_hw_sio(obj_rx)
-#                            rcv.set_property("LOGIC.MGT_ERRCNT_RESET_CTRL", "1", obj_rx)
-#                            rcv.set_property("LOGIC.MGT_ERRCNT_RESET_CTRL", "0", obj_rx)  
-#                            rcv.wait("400000")
+                            # rcv.set_property("LOGIC.MGT_ERRCNT_RESET_CTRL", "1", obj_rx)
+                            # rcv.set_property("LOGIC.MGT_ERRCNT_RESET_CTRL", "0", obj_rx)  
+                            # rcv.wait("400000")
                             err = rcv.get_property("LOGIC.ERRBIT_COUNT", obj_rx)
                             total_bits = rcv.get_property("RX_RECEIVED_BIT_COUNT", obj_rx)
                             scan_ber= rcv.get_property("RX_BER", obj_rx)
 
                             rcv.scan_remove_all() 
-                            print("--- TXDIFFSWING: " + str(i) + "-- TXPRE: " + str(j) + "-- TXPOST: " + str(k) + "-- RXTERM: " + str(l) + "-- Error_Count: " + str(int(err,16)) + "-- Open_Area: " + str(scan_area) + "-- Total_Bits: " + str(int(total_bits,16)) )
+                            # print("--- TXDIFFSWING: " + str(i) + "-- TXPRE: " + str(j) + "-- TXPOST: " + str(k) + "-- RXTERM: " + str(l) + "-- Error_Count: " + str(int(err,16)) + "-- Open_Area: " + str(scan_area) + "-- Total_Bits: " + str(int(total_bits,16)) )
+                            print("-- Error_Count: " + str(int(err,16)) + "-- Open_Area: " + str(scan_area) + "-- Total_Bits: " + str(int(total_bits,16)))
                             write_result_csv_debug(f, i, j, k, l, str(int(err,16)), scan_area, total_bits, scan_ber)
                             if int(float(scan_area)) > int(float(best_area)):
                                 best_area = scan_area
@@ -223,8 +226,6 @@ for mgt_idx in range(len(mgt_rx)):
                 break
         if int(float(best_area)) > desired_area:
             break
-
-
 
     transm.set_property("TXDIFFSWING", best_diff, obj_tx)
     transm.set_property("TXPRE", best_txpre, obj_tx)
