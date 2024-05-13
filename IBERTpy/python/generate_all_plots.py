@@ -3,7 +3,7 @@
 Created on Fri Jul 21 16:40:12 2017
 
 @author: msilvaol
-modified by: duquale
+modified by: duquale, Rui Zou
 """
 
 from eyescan_plot import eyescan_plot
