@@ -32,12 +32,12 @@ source <path to this imported repository>/Cornell_CM_Production_Scripts/autotuni
 
 To convert a csv input file to a pdf + png file and store them in the same directory as the csv input file, run the following command in <path to this imported repository>/Cornell_CM_Production_Scripts/IBERTpy/python, where <board> is the id of the scanned board (e.g. CM203) and date is of the form mm-dd-yy:
 ```sh
-$ python3 generate_all_plots.py <board> <date of scans>
+python3 generate_all_plots.py <board> <date of scans>
 ```
 
 After generating pdfs and png files, one can generate a summary pdf that organizes all eyescans of the standard CM203 MGT configuration into a more easily navigated summary document by entering the following command in <path to this imported repository>/Cornell_CM_Production_Scripts/IBERTpy/latex:
 ```sh
-$ pdflatex --jobname=<desired name of output file, don't add on ".pdf"> "\def\dateofscans{<date of scans>} \input{eyescan_summary.tex}"
+pdflatex --jobname=<desired name of output file, don't add on ".pdf"> "\def\dateofscans{<date of scans>} \input{eyescan_summary.tex}"
 ```
 Upon encountering a warning, type the letter r and hit enter to force the computer to ignore all further warnings.  If you wish to save the output files to a different directory you can add --output-directory=<desired output directory> as an additional argument after --jobname.
 
@@ -114,7 +114,7 @@ xcvu13p_0 for FPGA 1 and xcvu13p_1 for FPGA 2.
 The autotuning script is run by the following command:
 
 ```sh
-$ python3 run.py
+python3 run.py
 ```
 
 It loads the parameters in *config.ini*, opening two vivado instances and
@@ -131,8 +131,8 @@ Vivado instances remain open (no need to start Vivado by yourself). Then the tes
 is perormed by using the run.py script:
 
 ```sh
-$ cd automate
-$ ./run_MGT_autotune.sh
+cd automate
+./run_MGT_autotune.sh
 ```
 
 ### Results
@@ -157,19 +157,19 @@ TXDIFFSWING,TXPRE,TXPOST,RXTERM,Open Area
 The margin scanning script is run by the following command. It uses the same logic as the autotuning script but scans with 1D bathtub plot instead of 2D eyescan.
 
 ```sh
-$ python3 run1D.py
+python3 run1D.py
 ```
 This only scans parameters on the FPGA. To scan parameter on the firefly, one needs to directly change the setting on the firefly via mcu and run the scan for each of the changed setting. Make sure to modify the name of the files saved everytime the firefly setting changes.
 
 
 To plot. First run the following command to make a table with all the data.
 ```sh
-$ python3 table.py
+python3 table.py
 ```
 This creates a log that gathers all the settings and links together as well as an array of number of good links in the end.
 
 Copy and paste the last array into the following script and run to create plot.
 
 ```sh
-$ python3 plotting.py
+python3 plotting.py
 ```
