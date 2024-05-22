@@ -3,10 +3,10 @@ set mgt_rx_list [eval get_hw_sio_rxs]
 set mgt_len [llength $mgt_tx_list]
 set mgt_link_list [eval get_hw_sio_links]
 
-set date 05-16-24
+set date 05-22-24
 # Modify this variable to correspond to current date before running, Example date: 01-19-22
 
-set nfspath /afs/cern.ch/user/e/etsai/workspace/Cornell_CM_Production_Scripts/scans/apollo214/05-16-24
+set nfspath /afs/cern.ch/user/e/etsai/workspace/Cornell_CM_Production_Scripts/scans/apollo214/05-22-24
 # Also, be sure to first create corresponding directories to save the scans to (e.g. /mnt/scratch/ad683/Cornell_CM_Production_Scripts/scans/CM203/01-19-22)
 
 set TxFF1s {}
@@ -59,7 +59,7 @@ foreach Tx $TxFF1s Rx $RxFF1s {
     run_hw_sio_scan [get_hw_sio_scans $xil_newScan]
     incr i 1
     wait_on_hw_sio_scan [get_hw_sio_scans $xil_newScan]
-    write_hw_sio_scan -force "${nfspath}/eyescan_${trimRx}(xcvu13p_0rx)_to_${trimTx}(xcvu13p_0tx)" [get_hw_sio_scans $xil_newScan]
+    write_hw_sio_scan -force "${nfspath}/eyescan_${trimRx}(xcvu13p_0tx)_to_${trimTx}(xcvu13p_0rx)" [get_hw_sio_scans $xil_newScan]
     ;
 }
 
