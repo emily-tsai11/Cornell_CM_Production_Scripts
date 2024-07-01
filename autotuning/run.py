@@ -22,6 +22,9 @@
 # 2019-Mar-26 1.1      rglein          Added support for different Rx and Tx.
 #                                      Added error counter and BER as defined 
 #                                      in config and print it in results.
+# 2022-May-24 1.2      rzou            Modified reset procedure.
+#                                      Modified waiting procedure after reset.
+#                                      Modified output format. 
 #-----------------------------------------------------------------------------
 
 
@@ -150,13 +153,13 @@ for mgt_idx in range(len(mgt_rx)):
                     print(iter)
                     iter = iter+1
 
-                    rcv.reset_sio_link_error(obj_rx)
-                    rcv.refresh_hw_sio(obj_rx)
+                    rcv.reset_sio_link_error(obj_link)
+                    rcv.refresh_hw_sio(obj_link)
 #                    time.sleep(0.01) # parameters are not instantly  #Rui
                                     # refreshed. Adjust it to be as small as
                                     # possible for your setup
-                    link = rcv.get_property("LOGIC.LINK", obj_rx)
 
+                    link = rcv.get_property("LOGIC.LINK", obj_rx)
                     print("Rui: link: ", link)
                     err = "-1"
 
