@@ -24,70 +24,71 @@
 #                                      in config and print it in results.
 #-----------------------------------------------------------------------------
 
-
 from classes.pyIBERT import pyIBERT
 import time
 import os
 from configparser import ConfigParser
 
+
 # Functions
 def create_dir(dir):
-    # checks if data subdirectory exists. If not, create it.
+    # Checks if data subdirectory exists. If not, create it.
     os.makedirs(os.getcwd() + "/" + os.path.dirname(dir), exist_ok=True)
 
 def format_to_list(data):
-    data = data.replace(",\n",",")
+    data = data.replace(",\n", ",")
     data = data.split(",")
     return data
 
 def write_result_csv(f, TXDIFFSWING, TXPRE, TXPOST, RXTERM, err, scan_area):
     f.write(TXDIFFSWING
-            + "," +  TXPRE
-            + "," +  TXPOST
-            + "," +  RXTERM
-            + "," +  err
-            + "," +  scan_area
+            + "," + TXPRE
+            + "," + TXPOST
+            + "," + RXTERM
+            + "," + err
+            + "," + scan_area
             + "\n")
 
 def write_result_csv_debug(f, TXDIFFSWING, TXPRE, TXPOST, RXTERM, err, scan_area, total_bits, BER):
     f.write(TXDIFFSWING
-            + "," +  TXPRE
-            + "," +  TXPOST
-            + "," +  RXTERM
-            + "," +  err
-            + "," +  scan_area
-            + "," +  total_bits
-            + "," +  BER
+            + "," + TXPRE
+            + "," + TXPOST
+            + "," + RXTERM
+            + "," + err
+            + "," + scan_area
+            + "," + total_bits
+            + "," + BER
             + "\n")
 
 
 # Load init
 config = ConfigParser()
-config.read('config1D.ini')
-server0_addr = config.get('hw_server','server0_addr')
-server0_port = config.get('hw_server','server0_port')
-target0_name = config.get('hw_server','target0_name')
-target0_freq = config.get('hw_server','target0_freq')
-server1_addr = config.get('hw_server','server1_addr')
-server1_port = config.get('hw_server','server1_port')
-target1_name = config.get('hw_server','target1_name')
-target1_freq = config.get('hw_server','target1_freq')
-mgt_rx = config.get('mgt_parameters','mgt_rx')
-mgt_tx = config.get('mgt_parameters','mgt_tx')
-TXDIFFSWING = config.get('mgt_parameters','TXDIFFSWING')
-TXPOST = config.get('mgt_parameters','TXPOST')
-TXPRE = config.get('mgt_parameters','TXPRE')
-RXTERM = config.get('mgt_parameters','RXTERM')
-tcl_dir = config.get('test','tcl_dir')
-tcl_transm_name = config.get('test','tcl_transm_name')
-tcl_rcv_name = config.get('test','tcl_rcv_name')
-results_dir = config.get('test','results_dir')
-results_name = config.get('test','results_name')
-desired_area = config.getint('test','desired_area')
-BER = config.get('test','BER')
-err_req = config.getint('test','err_req')
-include_all_results = config.getboolean('test','include_all_results')
-scan_1d = config.getboolean('test','scan_1d')
+config.read("config1D.ini")
+server0_addr = config.get("hw_server", "server0_addr")
+server0_port = config.get("hw_server", "server0_port")
+target0_name = config.get("hw_server", "target0_name")
+target0_freq = config.get("hw_server", "target0_freq")
+server1_addr = config.get("hw_server", "server1_addr")
+server1_port = config.get("hw_server", "server1_port")
+target1_name = config.get("hw_server", "target1_name")
+target1_freq = config.get("hw_server", "target1_freq")
+mgt_rx = config.get("mgt_parameters", "mgt_rx")
+mgt_tx = config.get("mgt_parameters", "mgt_tx")
+TXDIFFSWING = config.get("mgt_parameters", "TXDIFFSWING")
+TXPOST = config.get("mgt_parameters", "TXPOST")
+TXPRE = config.get("mgt_parameters", "TXPRE")
+RXTERM = config.get("mgt_parameters", "RXTERM")
+tcl_dir = config.get("test", "tcl_dir")
+tcl_transm_name = config.get("test", "tcl_transm_name")
+tcl_rcv_name = config.get("test", "tcl_rcv_name")
+results_dir = config.get("test", "results_dir")
+results_name = config.get("test", "results_name")
+desired_area = config.getint("test", "desired_area")
+BER = config.get("test", "BER")
+err_req = config.getint("test", "err_req")
+include_all_results = config.getboolean("test", "include_all_results")
+scan_1d = config.getboolean("test", "scan_1d")
+
 
 mgt_rx = format_to_list(mgt_rx)
 mgt_tx = format_to_list(mgt_tx)
@@ -99,6 +100,7 @@ RXTERM = format_to_list(RXTERM)
 scantype = "Eyescan"
 if scan_1d:
     scantype = "Bathtub"
+
 
 # Main script
 print("----------------------------------------------------------------------")
@@ -126,8 +128,8 @@ for mgt_idx in range(len(mgt_rx)):
     obj_rx = "get_hw_sio_links *MGT_" + mgt_rx[mgt_idx] + "/RX"
     obj_tx = "get_hw_sio_links *MGT_" + mgt_tx[mgt_idx] + "/RX" # /RX is the end of the string
 
-    # rcv.scan_remove_all() #Rui
-    # transm.scan_remove_all() #RUi
+    # rcv.scan_remove_all()
+    # transm.scan_remove_all()
 
     iter = 0
 
@@ -152,12 +154,12 @@ for mgt_idx in range(len(mgt_rx)):
                     for reset in range(3):
                         # transm.reset_all_gth_tx()
                         # rcv.reset_all_gth_rx()
-                        transm.reset_all_gty_txdatapath() #Rui
-                        rcv.reset_all_gty_rxdatapath() #Rui
+                        transm.reset_all_gty_txdatapath()
+                        rcv.reset_all_gty_rxdatapath()
                         rcv.reset_sio_link_error(obj_rx)
                         rcv.refresh_hw_sio(obj_rx)
                     # rcv.wait("40000")
-                    # time.sleep(30) # parameters are not instantly #Rui
+                    # time.sleep(30) # parameters are not instantly
                                      # refreshed -- adjust it to be as small as
                                      # possible for your setup
 
@@ -191,7 +193,7 @@ for mgt_idx in range(len(mgt_rx)):
 
                             scan_area = rcv.get_property("Open_Area", "get_hw_sio_scan")
                             if scan_1d:
-                                scan_area = str(100*int(scan_area)/64.0)
+                                scan_area = str(100 * int(scan_area) / 64.0)
                             # rcv.source("refresh.tcl")
                             rcv.reset_sio_link_error(obj_rx)
                             for timer in range(1000):
@@ -203,7 +205,7 @@ for mgt_idx in range(len(mgt_rx)):
                             total_bits = rcv.get_property("RX_RECEIVED_BIT_COUNT", obj_rx)
                             scan_ber= rcv.get_property("RX_BER", obj_rx)
 
-                            rcv.scan_remove_all() 
+                            rcv.scan_remove_all()
                             # print("--- TXDIFFSWING: " + str(i) + "-- TXPRE: " + str(j) + "-- TXPOST: " + str(k) + "-- RXTERM: " + str(l) + "-- Error_Count: " + str(int(err,16)) + "-- Open_Area: " + str(scan_area) + "-- Total_Bits: " + str(int(total_bits,16)) )
                             print("-- Error_Count: " + str(int(err,16)) + "-- Open_Area: " + str(scan_area) + "-- Total_Bits: " + str(int(total_bits,16)))
                             write_result_csv_debug(f, i, j, k, l, str(int(err,16)), scan_area, total_bits, scan_ber)
