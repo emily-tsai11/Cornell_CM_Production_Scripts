@@ -20,29 +20,29 @@ remove_hw_sio_link [get_hw_sio_links]
 set TxFF1s {}
 set RxFF1s {}
 # reverse loopback on F1_1
-for {set t 4} {$t<10} {incr t} {
-    set tstring "X0Y$t/"
-    lappend TxFF1s $tstring
-}
-for {set r 15} {$r>9} {incr r -1} {
-    set rstring "X0Y$r/"
-    lappend RxFF1s $rstring
-}
-# loopback on F1_2
-# for {set t 20} {$t<32} {incr t} {
-#     set tstring "X0Y$t/"
-#     lappend TxFF1s $tstring
-#     lappend RxFF1s $tstring
-# }
-# reverse loopback on F1_3
-# for {set t 48} {$t<54} {incr t} {
+# for {set t 4} {$t<10} {incr t} {
 #     set tstring "X0Y$t/"
 #     lappend TxFF1s $tstring
 # }
-# for {set r 59} {$r>53} {incr r -1} {
+# for {set r 15} {$r>9} {incr r -1} {
 #     set rstring "X0Y$r/"
 #     lappend RxFF1s $rstring
 # }
+# loopback on F1_2
+for {set t 20} {$t<32} {incr t} {
+    set tstring "X0Y$t/"
+    lappend TxFF1s $tstring
+    lappend RxFF1s $tstring
+}
+# reverse loopback on F1_3
+for {set t 48} {$t<54} {incr t} {
+    set tstring "X0Y$t/"
+    lappend TxFF1s $tstring
+}
+for {set r 59} {$r>53} {incr r -1} {
+    set rstring "X0Y$r/"
+    lappend RxFF1s $rstring
+}
 # 4ch loopback on F1_6
 for {set t 36} {$t<40} {incr t} {
     set tstring "X0Y$t/"
@@ -82,14 +82,14 @@ for {set t 4} {$t<16} {incr t} {
     lappend RxFF2s $tstring
 }
 # reverse loopback on F2_2
-for {set t 20} {$t<26} {incr t} {
-    set tstring "X0Y$t/"
-    lappend TxFF2s $tstring
-}
-for {set r 31} {$r>25} {incr r -1} {
-    set rstring "X0Y$r/"
-    lappend RxFF2s $rstring
-}
+# for {set t 20} {$t<26} {incr t} {
+#     set tstring "X0Y$t/"
+#     lappend TxFF2s $tstring
+# }
+# for {set r 31} {$r>25} {incr r -1} {
+#     set rstring "X0Y$r/"
+#     lappend RxFF2s $rstring
+# }
 # reverse loopback on F2_3
 for {set t 48} {$t<54} {incr t} {
     set tstring "X0Y$t/"
@@ -126,57 +126,57 @@ foreach Tx $TxFF2s Rx $RxFF2s {
 }
 
 ##################
-# FPGA1 to FPGA2 #
+# FPGA1 & FPGA2 #
 ##################
 
-# set TxFF12s {}
-# set RxFF12s {}
-# set TxFF21s {}
-# set RxFF21s {}
-# # F1_1 Tx to F2_2 Rx (reverse loopback)
-# for {set t 4} {$t<16} {incr t} {
-#     set tstring "X0Y$t/"
-#     lappend TxFF12s $tstring
-# }
-# for {set r 31} {$r>19} {incr r -1} {
-#     set rstring "X0Y$r/"
-#     lappend RxFF12s $rstring
-# }
-# # F2_2 Tx to F1_1 Rx (loopback)
-# for {set t 20} {$t<32} {incr t} {
-#     set tstring "X0Y$t/"
-#     lappend TxFF21s $tstring
-# }
-# for {set r 15} {$r>3} {incr r -1} {
-#     set rstring "X0Y$r/"
-#     lappend RxFF21s $rstring
-# }
+set TxFF12s {}
+set RxFF12s {}
+set TxFF21s {}
+set RxFF21s {}
+# F1_1 Tx to F2_2 Rx (reverse loopback)
+for {set t 4} {$t<16} {incr t} {
+    set tstring "X0Y$t/"
+    lappend TxFF12s $tstring
+}
+for {set r 31} {$r>19} {incr r -1} {
+    set rstring "X0Y$r/"
+    lappend RxFF12s $rstring
+}
+# F2_2 Tx to F1_1 Rx (reverse loopback)
+for {set t 20} {$t<32} {incr t} {
+    set tstring "X0Y$t/"
+    lappend TxFF21s $tstring
+}
+for {set r 15} {$r>3} {incr r -1} {
+    set rstring "X0Y$r/"
+    lappend RxFF21s $rstring
+}
 
 # puts $TxFF12s
 # puts $RxFF12s
 # puts $TxFF21s
 # puts $RxFF21s
 
-# set i 0
-# foreach Tx $TxFF12s Rx $RxFF12s {
-#     puts "MGT $i"
-#     puts [lsearch -all -inline [lsearch -all -inline $mgt_tx_list *$Tx*] "*2542/0_1*"]
-#     puts [lsearch -all -inline [lsearch -all -inline $mgt_rx_list *$Rx*] "*2542/1_1*"]
-#     set xil_newLink [create_hw_sio_link -description "MGT $i" [lindex [get_hw_sio_txs [lsearch -all -inline [lsearch -all -inline $mgt_tx_list *$Tx*] "*2542/0_1*"]] 0] [lindex [get_hw_sio_rxs [lsearch -all -inline [lsearch -all -inline $mgt_rx_list *$Rx*] "*2542/1_1*"]] 0]]
-#     lappend xil_newLinks $xil_newLink
-#     incr i 1
-#     ;
-# }
-# set i 0
-# foreach Tx $TxFF21s Rx $RxFF21s {
-#     puts "MGT $i"
-#     puts [lsearch -all -inline [lsearch -all -inline $mgt_tx_list *$Tx*] "*2542/1_1*"]
-#     puts [lsearch -all -inline [lsearch -all -inline $mgt_rx_list *$Rx*] "*2542/0_1*"]
-#     set xil_newLink [create_hw_sio_link -description "MGT $i" [lindex [get_hw_sio_txs [lsearch -all -inline [lsearch -all -inline $mgt_tx_list *$Tx*] "*2542/1_1*"]] 0] [lindex [get_hw_sio_rxs [lsearch -all -inline [lsearch -all -inline $mgt_rx_list *$Rx*] "*2542/0_1*"]] 0]]
-#     lappend xil_newLinks $xil_newLink
-#     incr i 1
-#     ;
-# }
+set i 0
+foreach Tx $TxFF12s Rx $RxFF12s {
+    puts "MGT $i"
+    puts [lsearch -all -inline [lsearch -all -inline $mgt_tx_list *$Tx*] "*2542/0_1*"]
+    puts [lsearch -all -inline [lsearch -all -inline $mgt_rx_list *$Rx*] "*2542/1_1*"]
+    set xil_newLink [create_hw_sio_link -description "MGT $i" [lindex [get_hw_sio_txs [lsearch -all -inline [lsearch -all -inline $mgt_tx_list *$Tx*] "*2542/0_1*"]] 0] [lindex [get_hw_sio_rxs [lsearch -all -inline [lsearch -all -inline $mgt_rx_list *$Rx*] "*2542/1_1*"]] 0]]
+    lappend xil_newLinks $xil_newLink
+    incr i 1
+    ;
+}
+set i 0
+foreach Tx $TxFF21s Rx $RxFF21s {
+    puts "MGT $i"
+    puts [lsearch -all -inline [lsearch -all -inline $mgt_tx_list *$Tx*] "*2542/1_1*"]
+    puts [lsearch -all -inline [lsearch -all -inline $mgt_rx_list *$Rx*] "*2542/0_1*"]
+    set xil_newLink [create_hw_sio_link -description "MGT $i" [lindex [get_hw_sio_txs [lsearch -all -inline [lsearch -all -inline $mgt_tx_list *$Tx*] "*2542/1_1*"]] 0] [lindex [get_hw_sio_rxs [lsearch -all -inline [lsearch -all -inline $mgt_rx_list *$Rx*] "*2542/0_1*"]] 0]]
+    lappend xil_newLinks $xil_newLink
+    incr i 1
+    ;
+}
 
 # puts $mgt_tx_list
 # puts $mgt_rx_list
