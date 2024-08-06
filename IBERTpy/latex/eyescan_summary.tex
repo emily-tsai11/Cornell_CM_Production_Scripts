@@ -1,4 +1,4 @@
-% pdflatex --jobname=240719_6x12ch_2x4ch_fibersCleaned "\def\dateofscans{24-07-19-fibersCleaned} \input{eyescan_summary.tex}"
+% pdflatex --jobname=240806_6x12ch_2x4ch "\def\dateofscans{24-08-06} \input{eyescan_summary.tex}"
 
 \documentclass{report}
 
@@ -102,21 +102,21 @@
 \hyperlink{MyToc}{Return to Table of Contents}
 \newpage
 
-  % \begin{figure}[h] % ``[t!]'' placement specifier just for this example
-  %   % Numbers here can be modified based on reverse loopback links scanned
-  %   \foreach \number [count=\nxtrow from int(1), count=\i from int(\thepage+2), evaluate=\number as \Rx using int(19-\number)] in {4,...,15}{
-  %     \ifthenelse{\nxtrow=4 \OR \nxtrow=8 \OR \nxtrow=12 \OR \nxtrow=16 \OR \nxtrow=20 \OR \nxtrow=24 \OR \nxtrow=28}{
-  %       \begin{subfigure}{0.25\textwidth}
-  %         \hyperlink{page.\i}{\includegraphicsmaybe{../../scans/\board/\dateofscans/eyescan_X0Y\number(xcvu13p_0tx)_to_X0Y\Rx(xcvu13p_0rx).png}}
-  %       \end{subfigure}
-  %     }{
-  %       \begin{subfigure}{0.25\textwidth}
-  %         \hyperlink{page.\i}{\includegraphicsmaybe{../../scans/\board/\dateofscans/eyescan_X0Y\number(xcvu13p_0tx)_to_X0Y\Rx(xcvu13p_0rx).png}}
-  %       \end{subfigure}\hspace*{\fill}
-  %     }
-  %   }
-  %   \caption{F1\_1 reverse loopback overview.} % \label{F1_1_reverse_loopback_overview}
-  % \end{figure} \newpage
+  \begin{figure}[h] % ``[t!]'' placement specifier just for this example
+    % Numbers here can be modified based on reverse loopback links scanned
+    \foreach \number [count=\nxtrow from int(1), count=\i from int(\thepage+2), evaluate=\number as \Rx using int(19-\number)] in {4,...,15}{
+      \ifthenelse{\nxtrow=4 \OR \nxtrow=8 \OR \nxtrow=12 \OR \nxtrow=16 \OR \nxtrow=20 \OR \nxtrow=24 \OR \nxtrow=28}{
+        \begin{subfigure}{0.25\textwidth}
+          \hyperlink{page.\i}{\includegraphicsmaybe{../../scans/\board/\dateofscans/eyescan_X0Y\number(xcvu13p_0tx)_to_X0Y\Rx(xcvu13p_0rx).png}}
+        \end{subfigure}
+      }{
+        \begin{subfigure}{0.25\textwidth}
+          \hyperlink{page.\i}{\includegraphicsmaybe{../../scans/\board/\dateofscans/eyescan_X0Y\number(xcvu13p_0tx)_to_X0Y\Rx(xcvu13p_0rx).png}}
+        \end{subfigure}\hspace*{\fill}
+      }
+    }
+    \caption{F1\_1 reverse loopback overview.} % \label{F1_1_reverse_loopback_overview}
+  \end{figure} \newpage
 
   \begin{figure}[h] % ``[t!]'' placement specifier just for this example
     % Numbers here can be modified based on loopback links scanned
@@ -186,21 +186,21 @@
     \caption{F2\_1 loopback overview.} % \label{F2_1_loopback_overview}
   \end{figure} \newpage
 
-  % \begin{figure}[h] % ``[t!]'' placement specifier just for this example
-  %   % Numbers here can be modified based on reverse loopback links scanned
-  %   \foreach \number [count=\nxtrow from int(1), count=\i from int(\thepage+2), evaluate=\number as \Rx using int(51-\number)] in {20,...,31}{
-  %     \ifthenelse{\nxtrow=4 \OR \nxtrow=8 \OR \nxtrow=12 \OR \nxtrow=16 \OR \nxtrow=20 \OR \nxtrow=24 \OR \nxtrow=28}{
-  %       \begin{subfigure}{0.25\textwidth}
-  %         \hyperlink{page.\i}{\includegraphicsmaybe{../../scans/\board/\dateofscans/eyescan_X0Y\number(xcvu13p_1tx)_to_X0Y\Rx(xcvu13p_1rx).png}}
-  %       \end{subfigure}
-  %     }{
-  %       \begin{subfigure}{0.25\textwidth}
-  %         \hyperlink{page.\i}{\includegraphicsmaybe{../../scans/\board/\dateofscans/eyescan_X0Y\number(xcvu13p_1tx)_to_X0Y\Rx(xcvu13p_1rx).png}}
-  %       \end{subfigure}\hspace*{\fill}
-  %     }
-  %   }
-  %   \caption{F2\_2 reverse loopback overview.} % \label{F2_2_reverse_loopback_overview}
-  % \end{figure} \newpage
+  \begin{figure}[h] % ``[t!]'' placement specifier just for this example
+    % Numbers here can be modified based on reverse loopback links scanned
+    \foreach \number [count=\nxtrow from int(1), count=\i from int(\thepage+2), evaluate=\number as \Rx using int(51-\number)] in {20,...,31}{
+      \ifthenelse{\nxtrow=4 \OR \nxtrow=8 \OR \nxtrow=12 \OR \nxtrow=16 \OR \nxtrow=20 \OR \nxtrow=24 \OR \nxtrow=28}{
+        \begin{subfigure}{0.25\textwidth}
+          \hyperlink{page.\i}{\includegraphicsmaybe{../../scans/\board/\dateofscans/eyescan_X0Y\number(xcvu13p_1tx)_to_X0Y\Rx(xcvu13p_1rx).png}}
+        \end{subfigure}
+      }{
+        \begin{subfigure}{0.25\textwidth}
+          \hyperlink{page.\i}{\includegraphicsmaybe{../../scans/\board/\dateofscans/eyescan_X0Y\number(xcvu13p_1tx)_to_X0Y\Rx(xcvu13p_1rx).png}}
+        \end{subfigure}\hspace*{\fill}
+      }
+    }
+    \caption{F2\_2 reverse loopback overview.} % \label{F2_2_reverse_loopback_overview}
+  \end{figure} \newpage
 
   \begin{figure}[h] % ``[t!]'' placement specifier just for this example
     % Numbers here can be modified based on reverse loopback links scanned
@@ -234,53 +234,53 @@
     \caption{F2\_6 overview.} % \label{F2_6_overview}
   \end{figure}
 
-\chapter{Links between xcvu13p\_0 and xcvu13p\_1 overview}
-\hyperlink{MyToc}{Return to Table of Contents}
-\newpage
+% \chapter{Links between xcvu13p\_0 and xcvu13p\_1 overview}
+% \hyperlink{MyToc}{Return to Table of Contents}
+% \newpage
 
-  \begin{figure}[h] % ``[t!]'' placement specifier just for this example
-    % Numbers here can be modified based on reverse loopback links scanned
-    \foreach \number [count=\nxtrow from int(1), count=\i from int(\thepage+2), evaluate=\number as \Rx using int(35-\number)] in {4,...,15}{
-      \ifthenelse{\nxtrow=4 \OR \nxtrow=8 \OR \nxtrow=12 \OR \nxtrow=16 \OR \nxtrow=20 \OR \nxtrow=24 \OR \nxtrow=28}{
-        \begin{subfigure}{0.25\textwidth}
-          \hyperlink{page.\i}{\includegraphicsmaybe{../../scans/\board/\dateofscans/eyescan_X0Y\number(xcvu13p_0tx)_to_X0Y\Rx(xcvu13p_1rx).png}}
-        \end{subfigure}
-      }{
-        \begin{subfigure}{0.25\textwidth}
-          \hyperlink{page.\i}{\includegraphicsmaybe{../../scans/\board/\dateofscans/eyescan_X0Y\number(xcvu13p_0tx)_to_X0Y\Rx(xcvu13p_1rx).png}}
-        \end{subfigure}\hspace*{\fill}
-      }
-    }
-    \caption{F1\_1 Tx connected to F2\_2 Rx in reverse loopback overview.} % \label{F1_1_to_F2_2_reverse_loopback_overview}
-  \end{figure}
+%   \begin{figure}[h] % ``[t!]'' placement specifier just for this example
+%     % Numbers here can be modified based on reverse loopback links scanned
+%     \foreach \number [count=\nxtrow from int(1), count=\i from int(\thepage+2), evaluate=\number as \Rx using int(35-\number)] in {4,...,15}{
+%       \ifthenelse{\nxtrow=4 \OR \nxtrow=8 \OR \nxtrow=12 \OR \nxtrow=16 \OR \nxtrow=20 \OR \nxtrow=24 \OR \nxtrow=28}{
+%         \begin{subfigure}{0.25\textwidth}
+%           \hyperlink{page.\i}{\includegraphicsmaybe{../../scans/\board/\dateofscans/eyescan_X0Y\number(xcvu13p_0tx)_to_X0Y\Rx(xcvu13p_1rx).png}}
+%         \end{subfigure}
+%       }{
+%         \begin{subfigure}{0.25\textwidth}
+%           \hyperlink{page.\i}{\includegraphicsmaybe{../../scans/\board/\dateofscans/eyescan_X0Y\number(xcvu13p_0tx)_to_X0Y\Rx(xcvu13p_1rx).png}}
+%         \end{subfigure}\hspace*{\fill}
+%       }
+%     }
+%     \caption{F1\_1 Tx connected to F2\_2 Rx in reverse loopback overview.} % \label{F1_1_to_F2_2_reverse_loopback_overview}
+%   \end{figure}
 
-\chapter{Links between xcvu13p\_1 and xcvu13p\_0 overview}
-\hyperlink{MyToc}{Return to Table of Contents}
-\newpage
+% \chapter{Links between xcvu13p\_1 and xcvu13p\_0 overview}
+% \hyperlink{MyToc}{Return to Table of Contents}
+% \newpage
 
-  \begin{figure}[h] % ``[t!]'' placement specifier just for this example
-    % Numbers here can be modified based on reverse loopback links scanned
-    \foreach \number [count=\nxtrow from int(1), count=\i from int(\thepage+2), evaluate=\number as \Rx using int(35-\number)] in {20,...,31}{
-      \ifthenelse{\nxtrow=4 \OR \nxtrow=8 \OR \nxtrow=12 \OR \nxtrow=16 \OR \nxtrow=20 \OR \nxtrow=24 \OR \nxtrow=28}{
-        \begin{subfigure}{0.25\textwidth}
-          \hyperlink{page.\i}{\includegraphicsmaybe{../../scans/\board/\dateofscans/eyescan_X0Y\number(xcvu13p_1tx)_to_X0Y\Rx(xcvu13p_0rx).png}}
-        \end{subfigure}
-      }{
-        \begin{subfigure}{0.25\textwidth}
-          \hyperlink{page.\i}{\includegraphicsmaybe{../../scans/\board/\dateofscans/eyescan_X0Y\number(xcvu13p_1tx)_to_X0Y\Rx(xcvu13p_0rx).png}}
-        \end{subfigure}\hspace*{\fill}
-      }
-    }
-    \caption{F2\_2 Tx connected to F1\_1 Rx in reverse loopback overview.} % \label{F2_2_to_F1_1_reverse_loopback_overview}
-  \end{figure}
+%   \begin{figure}[h] % ``[t!]'' placement specifier just for this example
+%     % Numbers here can be modified based on reverse loopback links scanned
+%     \foreach \number [count=\nxtrow from int(1), count=\i from int(\thepage+2), evaluate=\number as \Rx using int(35-\number)] in {20,...,31}{
+%       \ifthenelse{\nxtrow=4 \OR \nxtrow=8 \OR \nxtrow=12 \OR \nxtrow=16 \OR \nxtrow=20 \OR \nxtrow=24 \OR \nxtrow=28}{
+%         \begin{subfigure}{0.25\textwidth}
+%           \hyperlink{page.\i}{\includegraphicsmaybe{../../scans/\board/\dateofscans/eyescan_X0Y\number(xcvu13p_1tx)_to_X0Y\Rx(xcvu13p_0rx).png}}
+%         \end{subfigure}
+%       }{
+%         \begin{subfigure}{0.25\textwidth}
+%           \hyperlink{page.\i}{\includegraphicsmaybe{../../scans/\board/\dateofscans/eyescan_X0Y\number(xcvu13p_1tx)_to_X0Y\Rx(xcvu13p_0rx).png}}
+%         \end{subfigure}\hspace*{\fill}
+%       }
+%     }
+%     \caption{F2\_2 Tx connected to F1\_1 Rx in reverse loopback overview.} % \label{F2_2_to_F1_1_reverse_loopback_overview}
+%   \end{figure}
 
 \chapter{Links between xcvu13p\_0 and xcvu13p\_0 details}
 \hyperlink{MyToc}{Return to Table of Contents}
 \newpage
 
-  % \foreach \n [evaluate=\n as \Rx using int(19-\n)] in {4,...,15}{
-  %   \modifiedincludepdf{-}{X0Y\n(xcvu13p_0tx)_to_X0Y\Rx(xcvu13p_0rx)}{../../scans/\board/\dateofscans/eyescan_X0Y\n(xcvu13p_0tx)_to_X0Y\Rx(xcvu13p_0rx).pdf}
-  % }
+  \foreach \n [evaluate=\n as \Rx using int(19-\n)] in {4,...,15}{
+    \modifiedincludepdf{-}{X0Y\n(xcvu13p_0tx)_to_X0Y\Rx(xcvu13p_0rx)}{../../scans/\board/\dateofscans/eyescan_X0Y\n(xcvu13p_0tx)_to_X0Y\Rx(xcvu13p_0rx).pdf}
+  }
   \foreach \n in {20,...,31} {
     \modifiedincludepdf{-}{X0Y\n(xcvu13p_0tx)_to_X0Y\n(xcvu13p_0rx)}{../../scans/\board/\dateofscans/eyescan_X0Y\n(xcvu13p_0tx)_to_X0Y\n(xcvu13p_0rx).pdf}
   }
@@ -298,9 +298,9 @@
   \foreach \n in {4,...,15} {
     \modifiedincludepdf{-}{X0Y\n(xcvu13p_1tx)_to_X0Y\n(xcvu13p_1rx)}{../../scans/\board/\dateofscans/eyescan_X0Y\n(xcvu13p_1tx)_to_X0Y\n(xcvu13p_1rx).pdf}
   }
-  % \foreach \n [evaluate=\n as \Rx using int(51-\n)] in {20,...,31}{
-  %   \modifiedincludepdf{-}{X0Y\n(xcvu13p_1tx)_to_X0Y\Rx(xcvu13p_1rx)}{../../scans/\board/\dateofscans/eyescan_X0Y\n(xcvu13p_1tx)_to_X0Y\Rx(xcvu13p_1rx).pdf}
-  % }
+  \foreach \n [evaluate=\n as \Rx using int(51-\n)] in {20,...,31}{
+    \modifiedincludepdf{-}{X0Y\n(xcvu13p_1tx)_to_X0Y\Rx(xcvu13p_1rx)}{../../scans/\board/\dateofscans/eyescan_X0Y\n(xcvu13p_1tx)_to_X0Y\Rx(xcvu13p_1rx).pdf}
+  }
   \foreach \n [evaluate=\n as \Rx using int(107-\n)] in {48,...,59}{
     \modifiedincludepdf{-}{X0Y\n(xcvu13p_1tx)_to_X0Y\Rx(xcvu13p_1rx)}{../../scans/\board/\dateofscans/eyescan_X0Y\n(xcvu13p_1tx)_to_X0Y\Rx(xcvu13p_1rx).pdf}
   }
@@ -308,21 +308,21 @@
     \modifiedincludepdf{-}{X0Y\n(xcvu13p_1tx)_to_X0Y\n(xcvu13p_1rx)}{../../scans/\board/\dateofscans/eyescan_X0Y\n(xcvu13p_1tx)_to_X0Y\n(xcvu13p_1rx).pdf}
   }
 
-\chapter{Links between xcvu13p\_0 and xcvu13p\_1 details}
-\hyperlink{MyToc}{Return to Table of Contents}
-\newpage
+% \chapter{Links between xcvu13p\_0 and xcvu13p\_1 details}
+% \hyperlink{MyToc}{Return to Table of Contents}
+% \newpage
 
-  \foreach \n [evaluate=\n as \Rx using int(35-\n)] in {4,...,15}{
-    \modifiedincludepdf{-}{X0Y\n(xcvu13p_0tx)_to_X0Y\Rx(xcvu13p_1rx)}{../../scans/\board/\dateofscans/eyescan_X0Y\n(xcvu13p_0tx)_to_X0Y\Rx(xcvu13p_1rx).pdf}
-  }
+%   \foreach \n [evaluate=\n as \Rx using int(35-\n)] in {4,...,15}{
+%     \modifiedincludepdf{-}{X0Y\n(xcvu13p_0tx)_to_X0Y\Rx(xcvu13p_1rx)}{../../scans/\board/\dateofscans/eyescan_X0Y\n(xcvu13p_0tx)_to_X0Y\Rx(xcvu13p_1rx).pdf}
+%   }
 
-\chapter{Links between xcvu13p\_1 and xcvu13p\_0 details}
-\hyperlink{MyToc}{Return to Table of Contents}
-\newpage
+% \chapter{Links between xcvu13p\_1 and xcvu13p\_0 details}
+% \hyperlink{MyToc}{Return to Table of Contents}
+% \newpage
 
-  \foreach \n [evaluate=\n as \Rx using int(35-\n)] in {20,...,31}{
-    \modifiedincludepdf{-}{X0Y\n(xcvu13p_1tx)_to_X0Y\Rx(xcvu13p_0rx)}{../../scans/\board/\dateofscans/eyescan_X0Y\n(xcvu13p_1tx)_to_X0Y\Rx(xcvu13p_0rx).pdf}
-  }
+%   \foreach \n [evaluate=\n as \Rx using int(35-\n)] in {20,...,31}{
+%     \modifiedincludepdf{-}{X0Y\n(xcvu13p_1tx)_to_X0Y\Rx(xcvu13p_0rx)}{../../scans/\board/\dateofscans/eyescan_X0Y\n(xcvu13p_1tx)_to_X0Y\Rx(xcvu13p_0rx).pdf}
+%   }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

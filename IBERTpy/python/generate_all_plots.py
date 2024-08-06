@@ -6,7 +6,7 @@ Created on Fri Jul 21 16:40:12 2017
 modified by: duquale, Rui Zou
 """
 
-# python3 generate_all_plots.py apollo214 30-06-24
+# python3 generate_all_plots.py apollo214 24-07-19
 
 from eyescan_plot import eyescan_plot
 from glob import glob
