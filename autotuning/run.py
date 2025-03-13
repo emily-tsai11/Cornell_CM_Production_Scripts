@@ -146,7 +146,11 @@ for mgt_idx in range(len(mgt_rx)):
 #                    transm.reset_all_gth_tx()
  #                   rcv.reset_all_gth_rx()
                     transm.reset_all_gty_txdatapath() #Rui
+                    transm.reset_all_gty_txdatapath()
+                    transm.reset_all_gty_txdatapath()
                     rcv.reset_all_gty_rxdatapath() #Rui
+                    rcv.reset_all_gty_rxdatapath()
+                    rcv.reset_all_gty_rxdatapath()
 
                     print("------ Transceiver - " + mgt_rx[mgt_idx])
                     print("------ Iter: " + str(iter))
@@ -159,7 +163,7 @@ for mgt_idx in range(len(mgt_rx)):
                                     # refreshed. Adjust it to be as small as
                                     # possible for your setup
 
-                    link = rcv.get_property("LOGIC.LINK", obj_rx)
+                    link = rcv.get_property("LOGIC.LINK", obj_link)
                     print("Rui: link: ", link)
                     err = "-1"
 
